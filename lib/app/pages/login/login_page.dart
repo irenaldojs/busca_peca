@@ -9,24 +9,33 @@ class LoginPage extends GetView<LoginController> {
 
   @override
   Widget build(BuildContext context) {
-    final formKey = GlobalKey<FormState>();
+    double height = context.height;
+    double width = context.width;
 
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.only(left: 10, right: 10),
         child: Center(
-          child: SingleChildScrollView(          
+          child: SingleChildScrollView(
             child: Column(
               //mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Form(
-                  key: formKey,
+                  key: controller.formKey.value,
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       textFormFieldEmail(controller.emailController.value),
-                      const SizedBox( height: 12,),
+                      SizedBox(height: height * 0.01),
                       textFormFieldPassword(
                           controller.passwordController.value),
+                      SizedBox(height: height * 0.01),
+                      TextButton(                                   
+                        onPressed: () {
+                          if(controller.formKey.value.currentState!.validate()){}
+                        },
+                        child: const Text('Entrar'),
+                      ),
                     ],
                   ),
                 )
