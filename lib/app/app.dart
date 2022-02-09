@@ -9,6 +9,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
       initialRoute: '/login',
       getPages: [GetPage(name: '/login', page: () => const LoginPage(), binding: LoginBidings())],
