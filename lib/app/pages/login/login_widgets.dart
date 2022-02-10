@@ -36,18 +36,19 @@ textFormFieldEmail(double height, TextEditingController editController) {
 
 textFormFieldPassword(double height, TextEditingController editController) {
   return TextFormField(
-      controller: editController,
-      keyboardType: TextInputType.text,
-      style: textStyleFormField(height),
-      decoration: inputDecorationFormField('Senha'),
-      obscureText: true,
-      validator: (value) {
-        if (value!.isEmpty) {
-          return 'Senha inválida ou em branco';
-        } else {
-          return null;
-        }
-      });
+    controller: editController,
+    keyboardType: TextInputType.text,
+    style: textStyleFormField(height),
+    decoration: inputDecorationFormField('Senha'),
+    obscureText: true,
+    validator: (value) {
+      if (value!.isEmpty) {
+        return 'Senha inválida ou em branco';
+      } else {
+        return null;
+      }
+    },
+  );
 }
 
 textButtomLogin(double height, LoginController controller) {
@@ -77,4 +78,3 @@ checkLine(LoginController controller) {
     ],
   );
 }
-

@@ -42,12 +42,12 @@ class LoginPage extends GetView<LoginController> {
                 }),
                 SignInButton(
                   Buttons.Google,
-                  text: 'Usar conta da gmail',
+                  text: 'Entrar com o gmail',
                   onPressed: () {},
                 ),
                 SignInButton(
                   Buttons.Facebook,
-                  text: 'Usar conta facebook',
+                  text: 'Entrar com o facebook',
                   onPressed: () {},
                 )
               ],
