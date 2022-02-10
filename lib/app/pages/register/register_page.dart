@@ -12,7 +12,9 @@ class RegisterPage extends GetView<RegisterController> {
     double width = context.width;
 
     return Scaffold(
-      appBar: AppBar(title: Text('Cadastro'),),
+      appBar: AppBar(
+        title: Text('Cadastro'),
+      ),
       body: Padding(
         padding: EdgeInsets.only(left: width / 12, right: width / 12),
         child: Center(
@@ -21,21 +23,25 @@ class RegisterPage extends GetView<RegisterController> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Form(
-                  key: controller.formKey.value,
-                  child: Column(
-                  children: [
-                    textFormFieldFisrtName(
-                        height, controller.firstNameController.value),
-                    textFormFieldLastName(
-                        height, controller.lastNameController.value),
-                    textFormFieldEmail(
-                        height, controller.emailController.value),
-                    textFormFieldPhone(
-                        height, controller.phoneController.value),
-                    textFormFieldPassword(
-                        height, controller.passwordController.value),
-                  ],
-                )),
+                    key: controller.formKey.value,
+                    child: Column(
+                      children: [
+                        textFormFieldFisrtName(
+                            height, controller.firstNameController.value),
+                        textFormFieldLastName(
+                            height, controller.lastNameController.value),
+                        textFormFieldEmail(
+                            height, controller.emailController.value),
+                        textFormFieldPhone(
+                            height, controller.phoneController.value, controller),
+                        textFormFieldPassword(
+                            height, controller.passwordController.value),
+                        textFormFieldComparePassword(
+                            height,
+                            controller.comparePasswordController.value,
+                            controller.passwordController.value)
+                      ],
+                    )),
                 textButtomRegister(height, controller),
               ],
             ),

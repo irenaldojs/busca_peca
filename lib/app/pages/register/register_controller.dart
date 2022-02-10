@@ -8,6 +8,7 @@ class RegisterController extends GetxController{
   final lastNameController = TextEditingController().obs;
   final emailController = TextEditingController().obs;
   final passwordController = TextEditingController().obs;
+  final comparePasswordController = TextEditingController().obs;
   final phoneController = TextEditingController().obs;
-
+  final phoneFormat = 0.obs;
 }
