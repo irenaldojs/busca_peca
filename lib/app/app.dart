@@ -1,5 +1,6 @@
 import 'package:busca_peca/app/app_bindings.dart';
 import 'package:busca_peca/app/pages/login/login_page.dart';
+import 'package:busca_peca/app/pages/register/register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,7 +13,19 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
       initialRoute: '/login',
-      getPages: [GetPage(name: '/login', page: () => const LoginPage(), binding: LoginBidings())],
+      getPages: [
+        GetPage(
+          name: '/login',
+          page: () => const LoginPage(),
+          binding: LoginBindings(),
+        ),
+        GetPage(
+          name: '/register',
+          page: () => const RegisterPage(),
+          transition: Transition.leftToRight,
+          binding: RegisterBindings(),
+        ),
+      ],
     );
   }
 }

@@ -36,17 +36,16 @@ class LoginPage extends GetView<LoginController> {
                   ),
                 ),
                 checkLine(controller),
-                SignInButton(
-                        Buttons.Email,
-                        text: 'Criar uma conta',
-                        onPressed: (){}
-                      ),
+                SignInButton(Buttons.Email, text: 'Criar uma conta',
+                    onPressed: () {
+                  Get.toNamed('/register');
+                }),
                 SignInButton(
                   Buttons.Google,
                   text: 'Usar conta da gmail',
                   onPressed: () {},
                 ),
-                SignInButton(                  
+                SignInButton(
                   Buttons.Facebook,
                   text: 'Usar conta facebook',
                   onPressed: () {},
