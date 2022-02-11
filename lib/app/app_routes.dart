@@ -1,7 +1,5 @@
 import 'package:busca_peca/app/pages/init/init_page.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-
 import 'app_bindings.dart';
 import 'pages/home/home_page.dart';
 import 'pages/login/login_page.dart';
