@@ -49,3 +49,6 @@ app.*.map.json
 /images
 /web
 /ios
+
+**/ios/GoogleService-Info.plist
+**/android/app/google-services.json

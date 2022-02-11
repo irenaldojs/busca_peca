@@ -11,8 +11,8 @@ textStyleFormField(double height) {
 
 inputDecorationFormField(String text) {
   return InputDecoration(
-    hintText: text,
-    hintStyle: const TextStyle(color: Colors.grey),
+    labelText: text,
+    labelStyle: const TextStyle(color: Colors.grey),
   );
 }
 
@@ -24,11 +24,10 @@ textFormFieldEmail(double height, TextEditingController editController) {
     style: textStyleFormField(height),
     decoration: inputDecorationFormField('E-mail'),
     validator: (value) {
-      if (value!.isEmpty ||
-          !RegExp(r'[a-z0-9.-_]+@[a-z0-9.-_]+').hasMatch(value)) {
+      if (value!.isEmpty) {
+        return 'Digite o email';
+      } else if (!RegExp(r'[a-z0-9.-_]+@[a-z0-9.-_]+').hasMatch(value)) {
         return 'Digite um email válido';
-      } else {
-        return null;
       }
     },
   );
@@ -43,24 +42,22 @@ textFormFieldPassword(double height, TextEditingController editController) {
     obscureText: true,
     validator: (value) {
       if (value!.isEmpty) {
-        return 'Senha inválida ou em branco';
-      } else {
-        return null;
+        return 'Digite a senha';
+      } else if (value.length < 6) {
+        return 'Deve ter ao menos 6 digitos';
       }
     },
   );
 }
 
-textButtomLogin(double height, LoginController controller) {
-  return TextButton(
-    style: TextButton.styleFrom(backgroundColor: Colors.blue),
+elevatedButtonLogin(Size size, LoginController controller) {
+  return ElevatedButton(
     onPressed: () {
-      if (controller.formKey.value.currentState!.validate()) {}
+      if (controller.formKey.value.currentState!.validate()) {
+        controller.login();
+      }
     },
-    child: Text(
-      'Entrar',
-      style: TextStyle(color: Colors.white, fontSize: height * 0.025),
-    ),
+    child: const Text('Login'),
   );
 }
 

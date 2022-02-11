@@ -13,6 +13,10 @@ class LoginPage extends GetView<LoginController> {
     double width = context.width;
 
     return Scaffold(
+      appBar: AppBar(
+        title: const Center(child: Text('Bem vindo')),
+        leading: const Icon(Icons.login),
+      ),
       body: Padding(
         padding: EdgeInsets.only(left: width / 12, right: width / 12),
         child: Center(
@@ -31,7 +35,7 @@ class LoginPage extends GetView<LoginController> {
                       textFormFieldPassword(
                           height, controller.passwordController.value),
                       SizedBox(height: height * 0.02),
-                      textButtomLogin(height, controller)
+                      elevatedButtonLogin(Get.mediaQuery.size, controller)
                     ],
                   ),
                 ),
@@ -48,7 +52,7 @@ class LoginPage extends GetView<LoginController> {
                 SignInButton(
                   Buttons.Facebook,
                   text: 'Entrar com o facebook',
-                  onPressed: () {},
+                  onPressed: () => controller.login(),
                 )
               ],
             ),

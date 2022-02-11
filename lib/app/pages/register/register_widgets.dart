@@ -1,6 +1,5 @@
 import 'dart:developer';
-
-import 'package:busca_peca/app/models/user_model.dart';
+import 'package:busca_peca/app/models/register_model.dart';
 import 'package:busca_peca/app/pages/register/register_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -14,14 +13,13 @@ textStyleFormField(double height) {
 
 inputDecorationFormField(String text) {
   return InputDecoration(
-    hintText: text,
-    hintStyle: const TextStyle(color: Colors.grey),
+    labelText: text,
+    labelStyle: const TextStyle(color: Colors.grey),
   );
 }
 
 textFormFieldFisrtName(double height, TextEditingController editController) {
   return TextFormField(
-    autofocus: true,
     controller: editController,
     keyboardType: TextInputType.text,
     style: textStyleFormField(height),
@@ -39,7 +37,6 @@ textFormFieldFisrtName(double height, TextEditingController editController) {
 
 textFormFieldLastName(double height, TextEditingController editController) {
   return TextFormField(
-    autofocus: true,
     controller: editController,
     keyboardType: TextInputType.text,
     style: textStyleFormField(height),
@@ -57,7 +54,6 @@ textFormFieldLastName(double height, TextEditingController editController) {
 
 textFormFieldEmail(double height, TextEditingController editController) {
   return TextFormField(
-    autofocus: true,
     controller: editController,
     keyboardType: TextInputType.emailAddress,
     style: textStyleFormField(height),
@@ -65,18 +61,18 @@ textFormFieldEmail(double height, TextEditingController editController) {
     validator: (value) {
       if (value!.isEmpty ||
           !RegExp(r'[a-z0-9.-_]+@[a-z0-9.-_]+').hasMatch(value)) {
-        return 'Digite um email válido';
+        return 'Email inválido';
       } else {
         return null;
       }
     },
   );
 }
-
-textFormFieldPhone(double height, TextEditingController editController, RegisterController controller) {
+/*
+textFormFieldPhone(double height, TextEditingController editController,
+    RegisterController controller) {
   var mask = MaskTextInputFormatter(mask: '(##)# ####-####');
   return TextFormField(
-    autofocus: true,
     controller: editController,
     keyboardType: TextInputType.number,
     style: textStyleFormField(height),
@@ -87,7 +83,7 @@ textFormFieldPhone(double height, TextEditingController editController, Register
       final replaceValue = value?.replaceAll(regex, '').toString();
       if (value!.isEmpty ||
           !RegExp(r'^(\d){11}').hasMatch(replaceValue.toString())) {
-        return 'Digite um telefone válido';
+        return 'Telefone inválido';
       } else {
         controller.phoneFormat.value = int.parse(replaceValue!);
         return null;
@@ -95,15 +91,9 @@ textFormFieldPhone(double height, TextEditingController editController, Register
     },
   );
 }
-
-textFormFieldPassword(double height, TextEditingController editController) {
-  return TextFormField(
-    controller: editController,
-    keyboardType: TextInputType.text,
-    style: textStyleFormField(height),
-    decoration: inputDecorationFormField('Senha'),
-    obscureText: true,
-    validator: (value) {
+*/
+/* validação de senha forte
+validator: (value) {
       if (value!.isEmpty) {
         return 'Digite uma senha';
       } else if (!RegExp(r'^(?=.*\d)').hasMatch(value)) {
@@ -118,6 +108,21 @@ textFormFieldPassword(double height, TextEditingController editController) {
               r'^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,}$')
           .hasMatch(value)) {
         return 'Deve ter ao menos 8 digitos';
+      }
+*/
+
+textFormFieldPassword(double height, TextEditingController editController) {
+  return TextFormField(
+    controller: editController,
+    keyboardType: TextInputType.text,
+    style: textStyleFormField(height),
+    decoration: inputDecorationFormField('Senha'),
+    obscureText: true,
+    validator: (value) {
+      if (value!.isEmpty) {
+        return 'Digite uma senha';
+      } else if (value.length < 6) {
+        return 'Deve ter ao menos 6 digitos';
       }
     },
   );
@@ -134,6 +139,9 @@ textFormFieldComparePassword(
     decoration: inputDecorationFormField('Confirme a senha'),
     obscureText: true,
     validator: (value) {
+      if (value!.isEmpty) {
+        return 'Confirme a senha';
+      }
       if (value != passwordEditController.text) {
         return 'Senha diferente';
       }
@@ -141,24 +149,17 @@ textFormFieldComparePassword(
   );
 }
 
-textButtomRegister(double height, RegisterController controller) {
-  return TextButton(
-    style: TextButton.styleFrom(backgroundColor: Colors.blue),
+elevatedButtonRegister(Size size, RegisterController controller) {
+  return ElevatedButton(
     onPressed: () {
       if (controller.formKey.value.currentState!.validate()) {
-        final user = UserModel(
-          fistName: controller.firstNameController.value.text,
-          lastName: controller.lastNameController.value.text,
+        final user = RegisterModel(
           email: controller.emailController.value.text,
-          phone: controller.phoneFormat.value,
           password: controller.passwordController.value.text,
         );
-        log(user.toString());
+        controller.register();
       }
     },
-    child: Text(
-      'Cadastrar',
-      style: TextStyle(color: Colors.white, fontSize: height * 0.025),
-    ),
+    child: const Text('Cadastrar'),
   );
 }

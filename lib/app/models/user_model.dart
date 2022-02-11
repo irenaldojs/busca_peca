@@ -6,7 +6,6 @@ class UserModel {
   String email;
   int phone;
   String password;
-  
   UserModel({
     required this.fistName,
     required this.lastName,
@@ -14,7 +13,6 @@ class UserModel {
     required this.phone,
     required this.password,
   });
-
 
   UserModel copyWith({
     String? fistName,

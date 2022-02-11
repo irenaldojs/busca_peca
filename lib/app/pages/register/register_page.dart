@@ -13,38 +13,34 @@ class RegisterPage extends GetView<RegisterController> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Cadastro'),
+        title: const Center(child: Text('Cadastro')),
       ),
       body: Padding(
         padding: EdgeInsets.only(left: width / 12, right: width / 12),
-        child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Form(
-                    key: controller.formKey.value,
-                    child: Column(
-                      children: [
-                        textFormFieldFisrtName(
-                            height, controller.firstNameController.value),
-                        textFormFieldLastName(
-                            height, controller.lastNameController.value),
-                        textFormFieldEmail(
-                            height, controller.emailController.value),
-                        textFormFieldPhone(
-                            height, controller.phoneController.value, controller),
-                        textFormFieldPassword(
-                            height, controller.passwordController.value),
-                        textFormFieldComparePassword(
-                            height,
-                            controller.comparePasswordController.value,
-                            controller.passwordController.value)
-                      ],
-                    )),
-                textButtomRegister(height, controller),
-              ],
-            ),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Form(
+                  key: controller.formKey.value,
+                  child: Column(
+                    children: [
+                      SizedBox(height: height * 0.02),
+                      textFormFieldEmail(
+                          height, controller.emailController.value),
+                      SizedBox(height: height * 0.02),
+                      textFormFieldPassword(
+                          height, controller.passwordController.value),
+                      SizedBox(height: height * 0.02),
+                      textFormFieldComparePassword(
+                          height,
+                          controller.comparePasswordController.value,
+                          controller.passwordController.value)
+                    ],
+                  )),
+              SizedBox(height: height * 0.02),
+              elevatedButtonRegister(Get.mediaQuery.size, controller),
+            ],
           ),
         ),
       ),
