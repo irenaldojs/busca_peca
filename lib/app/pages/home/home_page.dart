@@ -14,9 +14,9 @@ class HomePage extends GetView<HomeController> {
         title: textFieldSearch(controller),
       ),
       body: ListView.builder(
-        itemCount: 50,
+        itemCount: controller.data.catalogs.length,
         itemBuilder: (context, index) {
-          return ListTile(title: Text('ola $index'),);
+          return ListTile(title: Text(controller.data.catalogs[index].item),);
         },
       ),
     );

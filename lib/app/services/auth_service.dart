@@ -15,12 +15,11 @@ class AuthService extends GetxController {
   bool isLoading = true;
   User? localUser;
 
-  _authCheck() async {
-    await auth.authStateChanges().listen(
+  _authCheck() {
+    auth.authStateChanges().listen(
       (User? user) {
         localUser = (user == null) ? null : user;
         isLoading = false;
-        log('Usuário: '+localUser!.email.toString());
       },
     );
   }

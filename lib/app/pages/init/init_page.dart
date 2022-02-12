@@ -21,10 +21,8 @@ class InitPage extends GetView<AuthService> {
   route() {
     if (controller.isLoading == false) {
       if (controller.localUser == null) {
-        log('login');
         Get.offAllNamed('/login');
       } else {
-        log('home');
         Get.offAllNamed('/home');
       }
     }

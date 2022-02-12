@@ -1,8 +1,6 @@
-import 'dart:developer';
 import 'package:busca_peca/app/models/register_model.dart';
 import 'package:busca_peca/app/pages/register/register_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 textStyleFormField(double height) {
   return TextStyle(
@@ -153,7 +151,7 @@ elevatedButtonRegister(Size size, RegisterController controller) {
   return ElevatedButton(
     onPressed: () {
       if (controller.formKey.value.currentState!.validate()) {
-        final user = RegisterModel(
+          RegisterModel(
           email: controller.emailController.value.text,
           password: controller.passwordController.value.text,
         );
