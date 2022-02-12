@@ -1,4 +1,5 @@
 import 'package:busca_peca/app/pages/catalog/catalog_controller.dart';
+import 'package:busca_peca/app/pages/catalogData/catalog_data_controller.dart';
 import 'package:busca_peca/app/pages/home/home_controller.dart';
 import 'package:busca_peca/app/pages/login/login_controller.dart';
 import 'package:busca_peca/app/pages/profile/profile_controller.dart';
@@ -50,4 +51,12 @@ class CatalogBindings implements Bindings{
   void dependencies() {
     Get.lazyPut(() => CatalogController());
   }
+}
+
+class CatalogDataBinding implements Bindings{
+  @override
+  void dependencies() {
+    Get.lazyPut(() => CatalogDataController());
+  }
+
 }

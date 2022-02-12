@@ -15,15 +15,15 @@ class HomePage extends GetView<HomeController> {
         leading: iconButtonBar(controller),
         title: textFieldSearch(controller),
       ),
-      body: FutureBuilder<List<Catalog>>(
+      body: FutureBuilder<List<CatalogModel>>(
         future: controller.data.listCatalogs(),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if(snapshot.hasData){
-            List<Catalog> catalogs = snapshot.data;
+            List<CatalogModel> catalogs = snapshot.data;
             return ListView.builder(
               itemCount: catalogs.length,
               itemBuilder: (context, index){
-                Catalog catalog = catalogs[index];
+                CatalogModel catalog = catalogs[index];
                 return ListTile(
                   title: Text(catalog.item),
                   onTap: () {

@@ -1,21 +1,21 @@
 import 'dart:convert';
 
-class Catalog{
+class CatalogModel{
   String item;
   List<String> pesquisa;
   List<String> colunas;
 
-   Catalog({
+   CatalogModel({
     required this.item,
     required this.pesquisa,
     required this.colunas
   });
 
-  Catalog copyWith({
+  CatalogModel copyWith({
     String? email,
     String? password,
   }) {
-    return Catalog(
+    return CatalogModel(
       item: item,
       pesquisa: pesquisa,
       colunas: colunas,
@@ -30,8 +30,8 @@ class Catalog{
     };
   }
 
-  factory Catalog.fromMap(Map<String, dynamic> map) {
-    return Catalog(
+  factory CatalogModel.fromMap(Map<String, dynamic> map) {
+    return CatalogModel(
       item: map['item'] ?? '',
       pesquisa: map['pesquisa'] ?? '',
       colunas: map['colunas'] ?? '',
@@ -40,7 +40,7 @@ class Catalog{
 
   String toJson() => json.encode(toMap());
 
-  factory Catalog.fromJson(String source) => Catalog.fromMap(json.decode(source));
+  factory CatalogModel.fromJson(String source) => CatalogModel.fromMap(json.decode(source));
 
   @override
   String toString() => 'Catalog(item: $item, pesquisa: $pesquisa, colunas: $colunas)';
@@ -49,7 +49,7 @@ class Catalog{
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
   
-    return other is Catalog &&
+    return other is CatalogModel &&
       other.item == item &&
       other.pesquisa == pesquisa &&
       other.colunas == colunas;

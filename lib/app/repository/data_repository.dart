@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'dart:js_util';
 import 'package:busca_peca/app/models/catalog_data_model.dart';
 import 'package:busca_peca/app/models/catalog_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -22,17 +21,17 @@ class DataRepository extends GetxController {
   }
 
   Future<CatalogDataModel> catalogData(CatalogModel catalog) async {
-    CatalogDataModel catalogData = newObject();
+    
+    List<Map<String, dynamic>> list = [];
     var result =
         await FirebaseFirestore.instance.collection(catalog.item).get();
     for (var doc in result.docs) {
       Map<String, dynamic> item = {};
       for (int i = 0; i < catalog.colunas.length; i++) {
         item[catalog.colunas[i]] = doc[catalog.colunas[i]];
-        log(catalog.colunas[i] + ' : ' + doc[catalog.colunas[i]]);
       }
-      catalogData = CatalogDataModel(item: item);
-    }
-    return catalogData;
+      list.add(item);
+    }    
+    return CatalogDataModel(item: list);
   }
 }
