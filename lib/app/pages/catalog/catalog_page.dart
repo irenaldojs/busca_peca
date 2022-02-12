@@ -1,4 +1,4 @@
-import 'package:busca_peca/app/models/catalogo_model.dart';
+import 'package:busca_peca/app/models/catalog_model.dart';
 import 'package:busca_peca/app/pages/catalog/catalog_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,17 +8,12 @@ class CatalogPage extends GetView<CatalogController> {
 
   @override
   Widget build(BuildContext context) {
-    Catalogo catalogo = Get.arguments;
-    for (int i = 0; i < catalogo.pesquisa.length; i++) {
-      controller.textEditingControllers.add(TextEditingController());
-    }
-    ;
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text(catalogo.item)),
+        title: Center(child: Text(controller.catalog.item)),
       ),
       body: ListView.builder(
-        itemCount: catalogo.pesquisa.length,
+        itemCount: controller.catalog.pesquisa.length,
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.all(20),
@@ -28,7 +23,7 @@ class CatalogPage extends GetView<CatalogController> {
                 TextField(                  
                   controller: controller.textEditingControllers[index],
                   decoration: InputDecoration(
-                    labelText: catalogo.pesquisa[index]
+                    labelText: controller.catalog.pesquisa[index]
                   ),
                 ),
               ],

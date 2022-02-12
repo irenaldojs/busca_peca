@@ -1,4 +1,4 @@
-import 'package:busca_peca/app/models/catalogo_model.dart';
+import 'package:busca_peca/app/models/catalog_model.dart';
 import 'package:busca_peca/app/pages/home/home_controller.dart';
 import 'package:busca_peca/app/pages/home/home_widgets.dart';
 import 'package:flutter/material.dart';
@@ -15,15 +15,15 @@ class HomePage extends GetView<HomeController> {
         leading: iconButtonBar(controller),
         title: textFieldSearch(controller),
       ),
-      body: FutureBuilder<List<Catalogo>>(
-        future: controller.listCatalogs(),
+      body: FutureBuilder<List<Catalog>>(
+        future: controller.data.listCatalogs(),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if(snapshot.hasData){
-            List<Catalogo> catalogs = snapshot.data;
+            List<Catalog> catalogs = snapshot.data;
             return ListView.builder(
               itemCount: catalogs.length,
               itemBuilder: (context, index){
-                Catalogo catalog = catalogs[index];
+                Catalog catalog = catalogs[index];
                 return ListTile(
                   title: Text(catalog.item),
                   onTap: () {
