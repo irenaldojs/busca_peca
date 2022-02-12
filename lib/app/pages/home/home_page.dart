@@ -11,9 +11,14 @@ class HomePage extends GetView<HomeController> {
     return Scaffold(
       appBar: AppBar(
         leading: iconButtonBar(controller),
-        title : textFieldSearch(controller)
+        title: textFieldSearch(controller),
       ),
-      body: ListView(),
+      body: ListView.builder(
+        itemCount: 50,
+        itemBuilder: (context, index) {
+          return ListTile(title: Text('ola $index'),);
+        },
+      ),
     );
   }
 }
