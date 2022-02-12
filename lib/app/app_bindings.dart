@@ -1,3 +1,4 @@
+import 'package:busca_peca/app/pages/catalog/catalog_controller.dart';
 import 'package:busca_peca/app/pages/home/home_controller.dart';
 import 'package:busca_peca/app/pages/login/login_controller.dart';
 import 'package:busca_peca/app/pages/profile/profile_controller.dart';
@@ -42,4 +43,11 @@ class ProfileBindings implements Bindings{
     Get.lazyPut(() => ProfileController());
   }
   
+}
+
+class CatalogBindings implements Bindings{
+  @override
+  void dependencies() {
+    Get.lazyPut(() => CatalogController());
+  }
 }

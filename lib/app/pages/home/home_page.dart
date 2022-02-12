@@ -1,3 +1,4 @@
+import 'package:busca_peca/app/models/catalogo_model.dart';
 import 'package:busca_peca/app/pages/home/home_controller.dart';
 import 'package:busca_peca/app/pages/home/home_widgets.dart';
 import 'package:flutter/material.dart';
@@ -8,15 +9,32 @@ class HomePage extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         leading: iconButtonBar(controller),
         title: textFieldSearch(controller),
       ),
-      body: ListView.builder(
-        itemCount: controller.data.catalogs.length,
-        itemBuilder: (context, index) {
-          return ListTile(title: Text(controller.data.catalogs[index].item),);
+      body: FutureBuilder<List<Catalogo>>(
+        future: controller.listCatalogs(),
+        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+          if(snapshot.hasData){
+            List<Catalogo> catalogs = snapshot.data;
+            return ListView.builder(
+              itemCount: catalogs.length,
+              itemBuilder: (context, index){
+                Catalogo catalog = catalogs[index];
+                return ListTile(
+                  title: Text(catalog.item),
+                  onTap: () {
+                    Get.toNamed('/catalog', arguments: catalog);
+                  },
+                );
+              },
+            );
+          }
+
+          return const CircularProgressIndicator();
         },
       ),
     );

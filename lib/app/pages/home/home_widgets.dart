@@ -16,5 +16,5 @@ textFieldSearch(HomeController controller) => TextField(
         border: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(24))),
       ),
-      onChanged: controller.searchOnChanged,
+      onChanged: controller.searchOnChanged(),
     );

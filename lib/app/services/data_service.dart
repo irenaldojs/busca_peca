@@ -4,11 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
 class DataService extends GetxController {
-  @override
-  onInit() async {
-    super.onInit();
-    listCatalogs();
-  }
 
   List<Catalogo> catalogs = [];
 
