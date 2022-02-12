@@ -9,7 +9,7 @@ class CatalogPage extends GetView<CatalogController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text(controller.catalog.item)),
+        title: Center(child: Text(controller.catalog.item.toString().toUpperCase())),
       ),
       body: ListView.builder(
         itemCount: controller.catalog.pesquisa.length,

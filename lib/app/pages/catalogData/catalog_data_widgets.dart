@@ -1,39 +1,49 @@
-import 'dart:developer';
-
-import 'package:busca_peca/app/models/catalog_data_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 Widget listData(Map<String, dynamic> item) {
-  TextStyle textStyle = const TextStyle(fontSize: 30);
-  TextStyle textStyleOdd = const TextStyle(fontSize: 30, color: Colors.black);
+  TextStyle textStyle = const TextStyle(fontSize: 24, color: Colors.black);
+  TextStyle textStyleCar = const TextStyle(
+      fontSize: 28, color: Colors.black, fontWeight: FontWeight.bold);
+
   List<Widget> rows = [];
   for (var row in item.keys) {
-    bool odd = rows.length % 2 != 0;
+    bool car = row == 'carro';
     Widget temp = Container(
-        color: odd ? Colors.black : Colors.grey.shade300,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              row,
-              style: odd ? textStyle : textStyleOdd,
-            ),
-            Text(
-              item[row],
-              style: odd ? textStyle : textStyleOdd,
-            )
-          ],
-        ));
-    rows.add(temp);
+        decoration: BoxDecoration(
+            border:
+                !car ? const Border.symmetric(horizontal: BorderSide()) : null),
+        child: row != 'carro'
+            ? Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(row, style: textStyle),
+                  Text(
+                    item[row].toString().toUpperCase(),
+                    style: textStyle,
+                  )
+                ],
+              )
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    item['montadora'].toString().toUpperCase() +
+                        ' ' +
+                        item[row].toString().toUpperCase(),
+                    style: textStyleCar,
+                  )
+                ],
+              ));
+    if (row != 'montadora') rows.add(temp);
   }
 
   return Container(
-    padding: const EdgeInsets.all(10),
-    //margin: const EdgeInsets.all(8),
+    padding: const EdgeInsets.all(16),
+    margin: const EdgeInsets.all(4),
     decoration: BoxDecoration(
-      border: Border.all(),
-    ),
+        border: Border.all(),
+        color: Colors.white,
+        borderRadius: const BorderRadius.all(Radius.circular(36))),
     child: Column(
       children: rows,
     ),

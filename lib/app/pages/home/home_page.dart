@@ -24,12 +24,7 @@ class HomePage extends GetView<HomeController> {
               itemCount: catalogs.length,
               itemBuilder: (context, index){
                 CatalogModel catalog = catalogs[index];
-                return ListTile(
-                  title: Text(catalog.item),
-                  onTap: () {
-                    Get.toNamed('/catalog', arguments: catalog);
-                  },
-                );
+                return listTitle(catalog);
               },
             );
           }

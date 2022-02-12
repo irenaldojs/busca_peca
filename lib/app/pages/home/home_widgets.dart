@@ -1,3 +1,4 @@
+import 'package:busca_peca/app/models/catalog_model.dart';
 import 'package:busca_peca/app/pages/home/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,3 +19,14 @@ textFieldSearch(HomeController controller) => TextField(
       ),
       onChanged: controller.searchOnChanged(),
     );
+
+listTitle(CatalogModel catalog) {
+  return ListTile(
+      title: Text(
+        catalog.item.capitalize.toString(),
+        style: TextStyle(fontSize: 20),
+      ),
+      onTap: () {
+        Get.toNamed('/catalog', arguments: catalog);
+      });
+}
