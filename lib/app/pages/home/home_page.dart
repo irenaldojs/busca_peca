@@ -20,12 +20,15 @@ class HomePage extends GetView<HomeController> {
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if(snapshot.hasData){
             List<CatalogModel> catalogs = snapshot.data;
-            return ListView.builder(
-              itemCount: catalogs.length,
-              itemBuilder: (context, index){
-                CatalogModel catalog = catalogs[index];
-                return listTitle(catalog);
-              },
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListView.builder(
+                itemCount: catalogs.length,
+                itemBuilder: (context, index){
+                  CatalogModel catalog = catalogs[index];
+                  return listTitle(catalog);
+                },
+              ),
             );
           }
 

@@ -1,4 +1,8 @@
+import 'package:busca_peca/app/pages/catalogData/catalog_data_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+CatalogDataController controller = Get.find();
 
 Widget listData(Map<String, dynamic> item) {
   TextStyle textStyle = const TextStyle(fontSize: 24, color: Colors.black);

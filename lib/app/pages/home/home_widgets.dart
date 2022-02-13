@@ -24,7 +24,7 @@ listTitle(CatalogModel catalog) {
   return ListTile(
       title: Text(
         catalog.item.capitalize.toString(),
-        style: TextStyle(fontSize: 20),
+        style: const TextStyle(fontSize: 20),
       ),
       onTap: () {
         Get.toNamed('/catalog', arguments: catalog);

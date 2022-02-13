@@ -11,10 +11,10 @@ class CatalogDataPage extends GetView<CatalogDataController> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Center(child: Text(controller.catalog.item.toString().toUpperCase())),
+          title: const Center(child: Text('')),
         ),
         body: FutureBuilder<CatalogDataModel>(
-          future: controller.data.catalogData(controller.catalog),
+          future: Get.arguments,
           builder: (BuildContext context, AsyncSnapshot<CatalogDataModel> snapshot) {
             if (snapshot.hasData && snapshot.data != null) {
               CatalogDataModel catalog = snapshot.data!;
