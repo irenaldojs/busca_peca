@@ -12,6 +12,9 @@ class CatalogController extends GetxController {
   var age = TextEditingController().obs;
   var acd = false.obs;
   var dh = false.obs;
+  var abs = false.obs;
+  var ta = false.obs;
+  var gnv = false.obs;
 
   toUpperCaseCar(){
     car.value.text.toUpperCase();

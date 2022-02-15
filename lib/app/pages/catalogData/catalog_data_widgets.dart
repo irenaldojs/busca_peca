@@ -13,6 +13,7 @@ Widget listData(Map<String, dynamic> item) {
       const TextStyle(fontSize: 20, color: Colors.black, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic );
 
   List<Widget> rows = [];
+  
   for (var row in item.keys) {
     bool car = row == 'carro';
     Widget temp = Container(

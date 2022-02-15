@@ -97,4 +97,53 @@ checkboxDH(CatalogController controller) {
     ],
   );
 }
+checkboxGNV(CatalogController controller) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      Text(
+        'GNV',
+        style: textStyle,
+      ),
+      Obx(() => Checkbox(
+          value: controller.gnv.value,
+          onChanged: (value) {
+            controller.gnv.value = value ?? controller.gnv.value;
+          }))
+    ],
+  );
+}
 
+checkboxABS(CatalogController controller) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      Text(
+        'Freios ABS',
+        style: textStyle,
+      ),
+      Obx(() => Checkbox(
+          value: controller.abs.value,
+          onChanged: (value) {
+            controller.abs.value = value ?? controller.abs.value;
+          }))
+    ],
+  );
+}
+
+checkboxTA(CatalogController controller) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      Text(
+        'Transmissão Automática',
+        style: textStyle,
+      ),
+      Obx(() => Checkbox(
+          value: controller.ta.value,
+          onChanged: (value) {
+            controller.ta.value = value ?? controller.ta.value;
+          }))
+    ],
+  );
+}
