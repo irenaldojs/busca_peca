@@ -1,13 +1,16 @@
 import 'package:busca_peca/app/pages/catalogData/catalog_data_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 CatalogDataController controller = Get.find();
 
 Widget listData(Map<String, dynamic> item) {
-  TextStyle textStyle = const TextStyle(fontSize: 24, color: Colors.black);
+  TextStyle textStyle = const TextStyle(fontSize: 24, color: Colors.black, );
   TextStyle textStyleCar = const TextStyle(
       fontSize: 28, color: Colors.black, fontWeight: FontWeight.bold);
+  TextStyle textStyleAutomaker =
+      const TextStyle(fontSize: 20, color: Colors.black, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic );
 
   List<Widget> rows = [];
   for (var row in item.keys) {
@@ -27,18 +30,25 @@ Widget listData(Map<String, dynamic> item) {
                   )
                 ],
               )
-            : Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+            : Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    item['montadora'].toString().toUpperCase() +
+                        item['montadora'].toString().toUpperCase(),
+                    style: textStyleAutomaker,
+                  ),
+                  const SizedBox(height: 6.0,),
+                  AutoSizeText(
+                     item[row].toString().toUpperCase() +
                         ' ' +
-                        item[row].toString().toUpperCase(),
+                        item['ano'].toString().toUpperCase(),
                     style: textStyleCar,
-                  )
+                    maxLines: 1,
+                  ),
+                  const SizedBox(height: 10.0,),
                 ],
               ));
-    if (row != 'montadora') rows.add(temp);
+    if (row != 'montadora' && row != 'ano') rows.add(temp);
   }
 
   return Container(

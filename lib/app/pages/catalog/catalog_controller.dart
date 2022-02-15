@@ -8,7 +8,12 @@ class CatalogController extends GetxController {
   CatalogModel catalog = Get.arguments;
   DataRepository data = Get.find();
 
-  TextEditingController car = TextEditingController();
-  TextEditingController age = TextEditingController();
+  var car = TextEditingController().obs;
+  var age = TextEditingController().obs;
+  var acd = false.obs;
+  var dh = false.obs;
 
-}
+  toUpperCaseCar(){
+    car.value.text.toUpperCase();
+  }
+} 

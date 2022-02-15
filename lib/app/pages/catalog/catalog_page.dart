@@ -19,21 +19,33 @@ class CatalogPage extends GetView<CatalogController> {
           padding: const EdgeInsets.all(32.0),
           child: Column(
             children: [
-              filterCar(),
-              filterAge(),
+              filterCar(controller),
+              const SizedBox(
+                height: 10,
+              ),
+              filterAge(controller),
+              const SizedBox(
+                height: 10,
+              ),
+              checkboxACD(controller),
+              const SizedBox(
+                height: 10,
+              ),
+              checkboxDH(controller),
             ],
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.grey,
-        child: const Icon(Icons.search),
-        onPressed: () {
-
-          Get.toNamed('/catalogData', arguments: controller.data.catalogData(controller.catalog, car: controller.car.text, age: controller.age.text));
-        }
-            ,
-      ),
+            backgroundColor: Colors.grey,
+            child: const Icon(Icons.search),
+            onPressed: () {
+              Get.toNamed('/catalogData',
+                  arguments: controller.data.catalogData(controller.catalog,
+                      car: controller.car.value.text.toLowerCase(),
+                      age: controller.age.value.text));
+            },
+          ),
     );
   }
 }

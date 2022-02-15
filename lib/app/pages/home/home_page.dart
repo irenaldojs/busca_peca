@@ -9,7 +9,6 @@ class HomePage extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         leading: iconButtonBar(controller),
@@ -18,13 +17,13 @@ class HomePage extends GetView<HomeController> {
       body: FutureBuilder<List<CatalogModel>>(
         future: controller.data.listCatalogs(),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-          if(snapshot.hasData){
+          if (snapshot.hasData) {
             List<CatalogModel> catalogs = snapshot.data;
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: ListView.builder(
                 itemCount: catalogs.length,
-                itemBuilder: (context, index){
+                itemBuilder: (context, index) {
                   CatalogModel catalog = catalogs[index];
                   return listTitle(catalog);
                 },
@@ -32,7 +31,7 @@ class HomePage extends GetView<HomeController> {
             );
           }
 
-          return const CircularProgressIndicator();
+          return const Center(child: CircularProgressIndicator());
         },
       ),
     );

@@ -25,7 +25,7 @@ class CatalogDataPage extends GetView<CatalogDataController> {
                 },
               );
             }
-            return const CircularProgressIndicator();
+            return const Center(child: CircularProgressIndicator());
           },
         ));
   }
