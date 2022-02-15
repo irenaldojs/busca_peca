@@ -14,18 +14,19 @@ class HomePage extends GetView<HomeController> {
         leading: iconButtonBar(controller),
         title: textFieldSearch(controller),
       ),
-      body: FutureBuilder<List<CatalogModel>>(
+      body: FutureBuilder<Map<String, dynamic>>(
         future: controller.data.listCatalogs(),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if (snapshot.hasData) {
-            List<CatalogModel> catalogs = snapshot.data;
+            Map<String, dynamic> data = snapshot.data;
+            int count = data.keys.length;
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: ListView.builder(
-                itemCount: catalogs.length,
+                itemCount: count,
                 itemBuilder: (context, index) {
-                  CatalogModel catalog = catalogs[index];
-                  return listTitle(catalog);
+                  Map<String, dynamic> item = snapshot.data;
+                  return listTitle(data, item.keys.elementAt(index));
                 },
               ),
             );

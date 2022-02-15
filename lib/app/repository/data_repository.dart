@@ -6,17 +6,19 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
 class DataRepository extends GetxController {
-  Future<List<CatalogModel>> listCatalogs() async {
-    List<CatalogModel> catalogs = [];
-
-    var result = await FirebaseFirestore.instance.collection('catalogos').get();
-    for (var doc in result.docs) {
-      var colunms = doc['colunas'].toString().split('/').toList();
-      var search = doc['pesquisa'].toString().split('/').toList();
-      var item = doc['item'];
-      var catalog =
-          CatalogModel(item: item, pesquisa: search, colunas: colunms);
-      catalogs.add(catalog);
+  Future<Map<String, dynamic>> listCatalogs() async {
+    Map<String, dynamic> catalogs = {};
+    try {
+      var result =
+          await FirebaseFirestore.instance.collection('catalogos').get();
+      for (var doc in result.docs) {
+        Map<String, dynamic> item = {};
+        item['colunas'] = doc['colunas'].toString().split('/').toList();
+        item['pesquisa'] = doc['pesquisa'].toString().split('/').toList();
+        catalogs[doc['item']] = item;
+      }
+    } catch (e) {
+      log(e.toString());
     }
     return catalogs;
   }
@@ -24,60 +26,72 @@ class DataRepository extends GetxController {
   Future<CatalogDataModel> catalogData(CatalogModel catalog,
       {String? car, String? age}) async {
     List<Map<String, dynamic>> list = [];
-
-    if ((car == null || car == '') && (age == null || age.length < 4)) {
-      var result =
-          await FirebaseFirestore.instance.collection(catalog.item).get();
-      for (var doc in result.docs) {
-        Map<String, dynamic> item = {};
-        for (int i = 0; i < catalog.colunas.length; i++) {
-          item[catalog.colunas[i]] = doc[catalog.colunas[i]];
-        }
-        list.add(item);
-      }
-    } else if (age == null || age.length < 4) {
-      var result =
-          await FirebaseFirestore.instance.collection(catalog.item).get();
-      for (var doc in result.docs) {
-        if (doc['carro'].toString().contains(car.toString())) {
+    try {
+      if ((car == null || car == '') && (age == null || age.length < 4)) {
+        var result =
+            await FirebaseFirestore.instance.collection(catalog.item).get();
+        for (var doc in result.docs) {
           Map<String, dynamic> item = {};
-          for (int i = 0; i < catalog.colunas.length; i++) {
-            item[catalog.colunas[i]] = doc[catalog.colunas[i]];
+          item = doc.data();
+          list.add(item);
+          for (var colunm in catalog.colunas) {
+            if (item[colunm] == null) {
+              log(doc.id);
+            }
           }
-          list.add(item);
         }
-      }
-    } else if (car != null && car != '' && age != null && age.length == 4) {
-      var result =
-          await FirebaseFirestore.instance.collection(catalog.item).get();
-      for (var doc in result.docs) {        
-        if (doc['carro'].toString().contains(car.toString())){
-        Map<String, dynamic> item = {};
-        
-        for (int i = 0; i < catalog.colunas.length; i++) {
-          item[catalog.colunas[i]] = doc[catalog.colunas[i]];
+      } else if (age == null || age.length < 4) {
+        var result =
+            await FirebaseFirestore.instance.collection(catalog.item).get();
+        for (var doc in result.docs) {
+          if (doc['carro'].toString().contains(car.toString())) {
+            Map<String, dynamic> item = {};
+            item = doc.data();
+            list.add(item);
+            for (var colunm in catalog.colunas) {
+              if (item[colunm] == null) {
+                log(doc.id);
+              }
+            }
+          }
         }
-        List<String> ages = doc['ano'].toString().split('/').toList();
-        bool testIsGreaterThan = false;
-        if (ages[0] == '...') {
-          testIsGreaterThan = true;
-        } else if (int.parse(ages[0]) <= int.parse(age)) {
-          testIsGreaterThan = true;
-        }
-        bool testIsLessThan = false;
-        if (ages[1] == '...') {
-          testIsLessThan = true;
-        } else if (int.parse(ages[1]) >= int.parse(age)) {
-          testIsLessThan = true;
-        }
+      } else if (car != null && car != '' && age != null && age.length == 4) {
+        var result =
+            await FirebaseFirestore.instance.collection(catalog.item).get();
+        for (var doc in result.docs) {
+          if (doc['carro'].toString().contains(car.toString())) {
+            Map<String, dynamic> item = {};
+            item = doc.data();
+            list.add(item);
+            for (var colunm in catalog.colunas) {
+              if (item[colunm] == null) {
+                log(doc.id);
+              }
+            }
 
-        if (testIsGreaterThan && testIsLessThan) {
-          list.add(item);
-        }
+            List<String> ages = doc['ano'].toString().split('/').toList();
+            bool testIsGreaterThan = false;
+            if (ages[0] == '...') {
+              testIsGreaterThan = true;
+            } else if (int.parse(ages[0]) <= int.parse(age)) {
+              testIsGreaterThan = true;
+            }
+            bool testIsLessThan = false;
+            if (ages[1] == '...') {
+              testIsLessThan = true;
+            } else if (int.parse(ages[1]) >= int.parse(age)) {
+              testIsLessThan = true;
+            }
+
+            if (testIsGreaterThan && testIsLessThan) {
+              list.add(item);
+            }
+          }
         }
       }
+    } catch (e) {
+      log(e.toString());
     }
     return CatalogDataModel(item: list);
   }
 }
-

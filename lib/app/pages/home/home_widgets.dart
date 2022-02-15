@@ -20,13 +20,13 @@ textFieldSearch(HomeController controller) => TextField(
       onChanged: controller.searchOnChanged(),
     );
 
-listTitle(CatalogModel catalog) {
+listTitle(Map<String, dynamic> data, String item) {
   return ListTile(
       title: Text(
-        catalog.item.capitalize.toString(),
-        style: const TextStyle(fontSize: 20),
+        item.capitalize!,
+        style: const TextStyle(fontSize: 24),
       ),
       onTap: () {
-        Get.toNamed('/catalog', arguments: catalog);
+        Get.toNamed('/catalog', arguments: [data, item] );
       });
 }

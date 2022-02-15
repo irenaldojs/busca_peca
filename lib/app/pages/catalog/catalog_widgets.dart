@@ -9,6 +9,8 @@ var textStyle = const TextStyle(
   fontSize: 24,
   fontWeight: FontWeight.bold,
 );
+
+
 filterCar(CatalogController controller) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -31,36 +33,6 @@ filterCar(CatalogController controller) {
               border: const OutlineInputBorder(),
             ),
           ))
-    ],
-  );
-}
-
-filterAge(CatalogController controller) {
-  var mask = MaskTextInputFormatter(mask: '####');
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-      Expanded(
-        flex: 2,
-        child: Text('Ano', style: textStyle),
-      ),
-      Expanded(
-        flex: 1,
-        child: TextField(
-          controller: controller.age.value,
-          inputFormatters: [mask],
-          keyboardType: TextInputType.number,
-          style: const TextStyle(
-              fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
-          decoration: InputDecoration(
-            hintText: '0000',
-            hintStyle: const TextStyle(color: Colors.grey),
-            filled: true,
-            fillColor: Colors.grey.shade200,
-            border: const OutlineInputBorder(),
-          ),
-        ),
-      )
     ],
   );
 }
@@ -189,7 +161,7 @@ filterAgeDropDown(CatalogController controller) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
-      Text('Ano',style: textStyle),
+      Text('Ano', style: textStyle),
       Obx(() => DropdownButton<int>(
             style: textStyle,
             value: controller.ageInt.value,
