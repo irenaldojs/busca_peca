@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
-
 var textStyle = const TextStyle(
   fontSize: 24,
   fontWeight: FontWeight.bold,
@@ -54,6 +53,38 @@ filterAge(CatalogController controller) {
           style: const TextStyle(
               fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
           decoration: InputDecoration(
+            hintText: '0000',
+            hintStyle: const TextStyle(color: Colors.grey),
+            filled: true,
+            fillColor: Colors.grey.shade200,
+            border: const OutlineInputBorder(),
+          ),
+        ),
+      )
+    ],
+  );
+}
+
+filterMotor(CatalogController controller) {
+  var mask = MaskTextInputFormatter(mask: '#.#');
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      Expanded(
+        flex: 2,
+        child: Text('Motor', style: textStyle),
+      ),
+      Expanded(
+        flex: 1,
+        child: TextField(
+          controller: controller.motor.value,
+          inputFormatters: [mask],
+          keyboardType: TextInputType.number,
+          style: const TextStyle(
+              fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+          decoration: InputDecoration(
+            hintText: '0.0',
+            hintStyle: const TextStyle(color: Colors.grey),
             filled: true,
             fillColor: Colors.grey.shade200,
             border: const OutlineInputBorder(),
@@ -97,6 +128,7 @@ checkboxDH(CatalogController controller) {
     ],
   );
 }
+
 checkboxGNV(CatalogController controller) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -144,6 +176,35 @@ checkboxTA(CatalogController controller) {
           onChanged: (value) {
             controller.ta.value = value ?? controller.ta.value;
           }))
+    ],
+  );
+}
+
+filterAgeDropDown(CatalogController controller) {
+  List<int> ages = [1960];
+  for (int i = 1961; i < 2023; i++) {
+    ages.add(i);
+  }
+
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      Text('Ano',style: textStyle),
+      Obx(() => DropdownButton<int>(
+            style: textStyle,
+            value: controller.ageInt.value,
+            items: ages
+                .map<DropdownMenuItem<int>>(
+                  (int age) => DropdownMenuItem(
+                    child: Text(age.toString()),
+                    value: age,
+                  ),
+                )
+                .toList(),
+            onChanged: (value) {
+              controller.ageInt.value = value!;
+            },
+          )),
     ],
   );
 }

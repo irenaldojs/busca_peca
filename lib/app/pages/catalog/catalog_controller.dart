@@ -10,6 +10,8 @@ class CatalogController extends GetxController {
 
   var car = TextEditingController().obs;
   var age = TextEditingController().obs;
+  var ageInt = 2020.obs;
+  var motor = TextEditingController().obs;
   var acd = false.obs;
   var dh = false.obs;
   var abs = false.obs;

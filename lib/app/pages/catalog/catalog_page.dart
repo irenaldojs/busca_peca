@@ -21,7 +21,9 @@ class CatalogPage extends GetView<CatalogController> {
             children: [
               filterCar(controller),
               const SizedBox(height: 10),
-              filterAge(controller),
+              filterAgeDropDown(controller),
+              const SizedBox(height: 10),
+              filterMotor(controller),
               const SizedBox(height: 10),
               checkboxACD(controller),
               const SizedBox(height: 10),
