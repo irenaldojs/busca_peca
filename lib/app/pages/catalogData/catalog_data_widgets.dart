@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:busca_peca/app/pages/catalogData/catalog_data_controller.dart';
 import 'package:busca_peca/app/services/auth_service.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +9,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 CatalogDataController controller = Get.find();
 AuthService auth = Get.find();
 
-Widget listData(Map<String, dynamic> item) {
+Widget listData(Map<String, dynamic> data, String doc) {
   TextStyle textStyle = const TextStyle(
     fontSize: 24,
     color: Colors.black,
@@ -26,7 +28,7 @@ Widget listData(Map<String, dynamic> item) {
 
   List<Widget> rows = [];
 
-  for (var row in item.keys) {
+  for (var row in data.keys) {
     bool car = row == 'carro';
     Widget temp = Container(
         decoration: BoxDecoration(
@@ -38,7 +40,7 @@ Widget listData(Map<String, dynamic> item) {
                 children: [
                   Text(row, style: textStyle),
                   Text(
-                    item[row].toString().toUpperCase(),
+                    data[row].toString().toUpperCase(),
                     style: textStyle,
                   )
                 ],
@@ -47,19 +49,19 @@ Widget listData(Map<String, dynamic> item) {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    item['montadora'].toString().toUpperCase(),
+                    data['montadora'].toString().toUpperCase(),
                     style: textStyleAutomaker,
                   ),
                   const SizedBox(
                     height: 6.0,
                   ),
                   AutoSizeText(
-                    item[row].toString().toUpperCase(),
+                    data[row].toString().toUpperCase(),
                     style: textStyleCar,
                     maxLines: 1,
                   ),
                   AutoSizeText(
-                    item['ano'].toString().toUpperCase(),
+                    data['ano'].toString().toUpperCase(),
                     style: textStyleAge,
                     maxLines: 1,
                   ),
@@ -68,12 +70,14 @@ Widget listData(Map<String, dynamic> item) {
                   ),
                 ],
               ));
-    if (row != 'montadora' && row != 'ano') rows.add(temp);
+    if (row != 'montadora' && row != 'ano' && row != 'colunas') rows.add(temp);
   }
 
   editButtom() {
     return ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          log(doc);
+        },
         child: const Text(
           'Editar',
         ));

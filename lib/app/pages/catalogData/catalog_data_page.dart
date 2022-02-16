@@ -21,7 +21,8 @@ class CatalogDataPage extends GetView<CatalogDataController> {
               return ListView.builder(
                 itemCount: query.length,
                 itemBuilder: (context, index) {
-                  return listData( query[query.keys.elementAt(index)]);
+                  var doc = query.keys.elementAt(index);
+                  return listData( query[doc], doc );
                 },
               );
             }

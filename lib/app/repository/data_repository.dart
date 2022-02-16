@@ -26,28 +26,32 @@ class DataRepository extends GetxController {
     var result = await FirebaseFirestore.instance
         .collection(catalog.keys.elementAt(0))
         .get();
-    List colunas = [];
 
-    for (var snapshot in catalog.values) {
-      List colunas = snapshot['colunas'];
-    }
     for (var doc in result.docs) {
-      if (!doc['carro'].toString().contains(car!)) continue; // Testa se a variável 'car' contém no documento ['carro']
-      if (year != 'Todos') {  // Testa se a variável 'year' nnão é 'Todos'
-        List years = doc['ano'].toString().split('/'); // Separa o ano inicial do ano final
+      if (!doc['carro'].toString().contains(car!))
+        continue; // Testa se a variável 'car' contém no documento ['carro']
+      if (year != 'Todos') {
+        // Testa se a variável 'year' nnão é 'Todos'
+        List years = doc['ano']
+            .toString()
+            .split('/'); // Separa o ano inicial do ano final
         int yearInt = int.parse(year!); // Converte a variável 'year' em inteiro
-        if (years[0] != '...') {  // Testa se o ano inicial não é vazio
+        if (years[0] != '...') {
+          // Testa se o ano inicial não é vazio
           int start = int.parse(years[0]); // Converte o ano inicial em inteiro
-          if (yearInt < start) continue; // Testa se o ano inicial da busca é menor que a do documento
+          if (yearInt < start)
+            continue; // Testa se o ano inicial da busca é menor que a do documento
         }
-        if (years[1] != '...') {  // Testa se o ano final não é vazio
-          int end = int.parse(years[1]);  // Converte o ano final em inteiro
-          if (yearInt > end) continue;  // Testa se o ano final da busca é menor que a do documento
+        if (years[1] != '...') {
+          // Testa se o ano final não é vazio
+          int end = int.parse(years[1]); // Converte o ano final em inteiro
+          if (yearInt > end)
+            continue; // Testa se o ano final da busca é menor que a do documento
         }
       }
       query[doc.id] = doc.data();
+      query[doc.id]['colunas'] = catalog[catalog.keys.elementAt(0)]['colunas'];      
     }
-    log(query.length.toString());
     return query;
   }
 }
