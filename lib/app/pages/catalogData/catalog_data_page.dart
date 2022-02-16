@@ -13,15 +13,15 @@ class CatalogDataPage extends GetView<CatalogDataController> {
         appBar: AppBar(
           title: const Center(child: Text('')),
         ),
-        body: FutureBuilder<CatalogDataModel>(
+        body: FutureBuilder<Map<String, dynamic> >(
           future: Get.arguments,
-          builder: (BuildContext context, AsyncSnapshot<CatalogDataModel> snapshot) {
+          builder: (BuildContext context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
             if (snapshot.hasData && snapshot.data != null) {
-              CatalogDataModel catalog = snapshot.data!;
+              Map<String, dynamic> query = snapshot.data!;
               return ListView.builder(
-                itemCount: catalog.item.length,
+                itemCount: query.length,
                 itemBuilder: (context, index) {
-                  return listData(catalog.item[index]);
+                  return listData( query[query.keys.elementAt(index)]);
                 },
               );
             }

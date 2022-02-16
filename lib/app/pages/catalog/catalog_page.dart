@@ -12,7 +12,8 @@ class CatalogPage extends GetView<CatalogController> {
     return Scaffold(
       appBar: AppBar(
           title: Center(
-        child: Text(controller.catalog.keys.elementAt(0).toString().capitalize!),
+        child:
+            Text(controller.catalog.keys.elementAt(0).toString().capitalize!),
       )),
       body: SingleChildScrollView(
         child: Padding(
@@ -42,9 +43,11 @@ class CatalogPage extends GetView<CatalogController> {
         backgroundColor: Colors.grey,
         child: const Icon(Icons.search),
         onPressed: () {
-          var teste = controller.data.catalogData(controller.catalog,
-              car: controller.car.value.text.toLowerCase(),
-              year: controller.year.value.toString());
+          Get.toNamed('catalogData',
+              arguments: controller.data.catalogData(controller.catalog,
+                  car: controller.car.value.text.toLowerCase(),
+                  year: controller.year.value.toString()));
+
           /*
           Get.toNamed('/catalogData',
               arguments: controller.data.catalogData(controller.catalog[0],
