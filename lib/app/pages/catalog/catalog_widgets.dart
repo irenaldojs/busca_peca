@@ -10,7 +10,6 @@ var textStyle = const TextStyle(
   fontWeight: FontWeight.bold,
 );
 
-
 filterCar(CatalogController controller) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -153,28 +152,27 @@ checkboxTA(CatalogController controller) {
 }
 
 filterAgeDropDown(CatalogController controller) {
-  List<int> ages = [1960];
+  List<String> ages = ['Todos'];
+
   for (int i = 1961; i < 2023; i++) {
-    ages.add(i);
-  }
+    ages.add(i.toString());
+  };
 
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
       Text('Ano', style: textStyle),
-      Obx(() => DropdownButton<int>(
+      Obx(() => DropdownButton<String>(
             style: textStyle,
-            value: controller.ageInt.value,
-            items: ages
-                .map<DropdownMenuItem<int>>(
-                  (int age) => DropdownMenuItem(
-                    child: Text(age.toString()),
-                    value: age,
-                  ),
-                )
-                .toList(),
-            onChanged: (value) {
-              controller.ageInt.value = value!;
+            value: controller.year.value,
+            items: ages.map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
+            onChanged: (_) {
+              controller.year.value = _!;
             },
           )),
     ],

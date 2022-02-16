@@ -1,16 +1,16 @@
-import 'package:busca_peca/app/models/catalog_model.dart';
+import 'dart:developer';
+
 import 'package:busca_peca/app/repository/data_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class CatalogController extends GetxController {
-  
-  CatalogModel catalog = Get.arguments;
+ 
+  Map<String, dynamic> catalog = Get.arguments;
   DataRepository data = Get.find();
 
   var car = TextEditingController().obs;
-  var age = TextEditingController().obs;
-  var ageInt = 2020.obs;
+  var year = 'Todos'.obs;
   var motor = TextEditingController().obs;
   var acd = false.obs;
   var dh = false.obs;
@@ -18,7 +18,8 @@ class CatalogController extends GetxController {
   var ta = false.obs;
   var gnv = false.obs;
 
-  toUpperCaseCar(){
+
+  toUpperCaseCar() {
     car.value.text.toUpperCase();
   }
-} 
+}

@@ -1,7 +1,4 @@
 import 'dart:developer';
-
-import 'package:busca_peca/app/models/catalog_data_model.dart';
-import 'package:busca_peca/app/models/catalog_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
@@ -23,75 +20,34 @@ class DataRepository extends GetxController {
     return catalogs;
   }
 
-  Future<CatalogDataModel> catalogData(CatalogModel catalog,
-      {String? car, String? age}) async {
-    List<Map<String, dynamic>> list = [];
-    try {
-      if ((car == null || car == '') && (age == null || age.length < 4)) {
-        var result =
-            await FirebaseFirestore.instance.collection(catalog.item).get();
-        for (var doc in result.docs) {
-          Map<String, dynamic> item = {};
-          item = doc.data();
-          list.add(item);
-          for (var colunm in catalog.colunas) {
-            if (item[colunm] == null) {
-              log(doc.id);
-            }
-          }
-        }
-      } else if (age == null || age.length < 4) {
-        var result =
-            await FirebaseFirestore.instance.collection(catalog.item).get();
-        for (var doc in result.docs) {
-          if (doc['carro'].toString().contains(car.toString())) {
-            Map<String, dynamic> item = {};
-            item = doc.data();
-            list.add(item);
-            for (var colunm in catalog.colunas) {
-              if (item[colunm] == null) {
-                log(doc.id);
-              }
-            }
-          }
-        }
-      } else if (car != null && car != '' && age != null && age.length == 4) {
-        var result =
-            await FirebaseFirestore.instance.collection(catalog.item).get();
-        for (var doc in result.docs) {
-          if (doc['carro'].toString().contains(car.toString())) {
-            Map<String, dynamic> item = {};
-            item = doc.data();
-            list.add(item);
-            for (var colunm in catalog.colunas) {
-              if (item[colunm] == null) {
-                log(doc.id);
-              }
-            }
+  Future<Map<String, dynamic>> catalogData(Map<String, dynamic> catalog,
+      {String? car, String? year}) async {
+    Map<String, dynamic> query = {};
+    var result = await FirebaseFirestore.instance
+        .collection(catalog.keys.elementAt(0))
+        .get();
+    List colunas = [];
 
-            List<String> ages = doc['ano'].toString().split('/').toList();
-            bool testIsGreaterThan = false;
-            if (ages[0] == '...') {
-              testIsGreaterThan = true;
-            } else if (int.parse(ages[0]) <= int.parse(age)) {
-              testIsGreaterThan = true;
-            }
-            bool testIsLessThan = false;
-            if (ages[1] == '...') {
-              testIsLessThan = true;
-            } else if (int.parse(ages[1]) >= int.parse(age)) {
-              testIsLessThan = true;
-            }
-
-            if (testIsGreaterThan && testIsLessThan) {
-              list.add(item);
-            }
-          }
+    for (var snapshot in catalog.values) {
+      List colunas = snapshot['colunas'];
+    }
+    for (var doc in result.docs) {
+      if (!doc['carro'].toString().contains(car!)) continue; // Testa se a variável 'car' contém no documento ['carro']
+      if (year != 'Todos') {  // Testa se a variável 'year' nnão é 'Todos'
+        List years = doc['ano'].toString().split('/'); // Separa o ano inicial do ano final
+        int yearInt = int.parse(year!); // Converte a variável 'year' em inteiro
+        if (years[0] != '...') {  // Testa se o ano inicial não é vazio
+          int start = int.parse(years[0]); // Converte o ano inicial em inteiro
+          if (yearInt < start) continue; // Testa se o ano inicial da busca é menor que a do documento
+        }
+        if (years[1] != '...') {  // Testa se o ano final não é vazio
+          int end = int.parse(years[1]);  // Converte o ano final em inteiro
+          if (yearInt > end) continue;  // Testa se o ano final da busca é menor que a do documento
         }
       }
-    } catch (e) {
-      log(e.toString());
+      query[doc.id] = doc.data();
     }
-    return CatalogDataModel(item: list);
+    log(query.length.toString());
+    return query;
   }
 }

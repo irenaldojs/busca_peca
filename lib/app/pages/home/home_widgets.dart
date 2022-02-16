@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:busca_peca/app/models/catalog_model.dart';
 import 'package:busca_peca/app/pages/home/home_controller.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +29,7 @@ listTitle(Map<String, dynamic> data, String item) {
         style: const TextStyle(fontSize: 24),
       ),
       onTap: () {
-        Get.toNamed('/catalog', arguments: [data, item] );
+        log(data.toString());
+        Get.toNamed('/catalog', arguments: data );
       });
 }
