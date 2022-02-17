@@ -1,5 +1,4 @@
-import 'dart:developer';
-
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:busca_peca/app/pages/catalog/catalog_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -70,15 +69,21 @@ checkboxACD(CatalogController controller) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
-      Text(
-        'Ar Condicionado',
-        style: textStyle,
+      Expanded(
+        flex: 6,
+        child: AutoSizeText(
+          'Ar Condicionado',
+          style: textStyle,
+        ),
       ),
-      Obx(() => Checkbox(
-          value: controller.acd.value,
-          onChanged: (value) {
-            controller.acd.value = value ?? controller.acd.value;
-          }))
+      Expanded(
+        flex: 1,
+        child: Obx(() => Checkbox(
+            value: controller.acd.value,
+            onChanged: (value) {
+              controller.acd.value = value ?? controller.acd.value;
+            })),
+      )
     ],
   );
 }
@@ -87,15 +92,21 @@ checkboxDH(CatalogController controller) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
-      Text(
-        'Direção Hidráulica',
-        style: textStyle,
+      Expanded(
+        flex: 6,
+        child: AutoSizeText(
+          'Direção Hidráulica',
+          style: textStyle,
+        ),
       ),
-      Obx(() => Checkbox(
-          value: controller.dh.value,
-          onChanged: (value) {
-            controller.dh.value = value ?? controller.dh.value;
-          }))
+      Expanded(
+        flex: 1,
+        child: Obx(() => Checkbox(
+            value: controller.dh.value,
+            onChanged: (value) {
+              controller.dh.value = value ?? controller.dh.value;
+            })),
+      )
     ],
   );
 }
@@ -104,15 +115,21 @@ checkboxGNV(CatalogController controller) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
-      Text(
-        'GNV',
-        style: textStyle,
+      Expanded(
+        flex: 6,
+        child: AutoSizeText(
+          'GNV',
+          style: textStyle,
+        ),
       ),
-      Obx(() => Checkbox(
-          value: controller.gnv.value,
-          onChanged: (value) {
-            controller.gnv.value = value ?? controller.gnv.value;
-          }))
+      Expanded(
+        flex: 1,
+        child: Obx(() => Checkbox(
+            value: controller.gnv.value,
+            onChanged: (value) {
+              controller.gnv.value = value ?? controller.gnv.value;
+            })),
+      )
     ],
   );
 }
@@ -121,15 +138,21 @@ checkboxABS(CatalogController controller) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
-      Text(
-        'Freios ABS',
-        style: textStyle,
+      Expanded(
+        flex: 6,
+        child: AutoSizeText(
+          'Freios ABS',
+          style: textStyle,
+        ),
       ),
-      Obx(() => Checkbox(
-          value: controller.abs.value,
-          onChanged: (value) {
-            controller.abs.value = value ?? controller.abs.value;
-          }))
+      Expanded(
+        flex: 1,
+        child: Obx(() => Checkbox(
+            value: controller.abs.value,
+            onChanged: (value) {
+              controller.abs.value = value ?? controller.abs.value;
+            })),
+      )
     ],
   );
 }
@@ -138,15 +161,22 @@ checkboxTA(CatalogController controller) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
-      Text(
-        'Transmissão Automática',
-        style: textStyle,
+      Expanded(
+        flex: 6,
+        child: AutoSizeText(
+          'Transmissão Automática',
+          maxLines: 1,
+          style: textStyle,
+        ),
       ),
-      Obx(() => Checkbox(
-          value: controller.ta.value,
-          onChanged: (value) {
-            controller.ta.value = value ?? controller.ta.value;
-          }))
+      Expanded(
+        flex: 1,
+        child: Obx(() => Checkbox(
+            value: controller.ta.value,
+            onChanged: (value) {
+              controller.ta.value = value ?? controller.ta.value;
+            })),
+      )
     ],
   );
 }

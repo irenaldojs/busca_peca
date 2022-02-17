@@ -1,6 +1,4 @@
 import 'dart:developer';
-
-import 'package:busca_peca/app/models/catalog_model.dart';
 import 'package:busca_peca/app/pages/home/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -22,14 +20,13 @@ textFieldSearch(HomeController controller) => TextField(
       onChanged: controller.searchOnChanged(),
     );
 
-listTitle(Map<String, dynamic> data, String item) {
+listTitle(HomeController controller, String item) {
   return ListTile(
       title: Text(
-        item.capitalize!,
+        item.split('/')[2].capitalize!,
         style: const TextStyle(fontSize: 24),
       ),
       onTap: () {
-        log(data.toString());
-        Get.toNamed('/catalog', arguments: data );
+        Get.toNamed('/catalog', arguments: item );
       });
 }

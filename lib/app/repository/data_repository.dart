@@ -12,6 +12,7 @@ class DataRepository extends GetxController {
         Map<String, dynamic> item = {};
         item['colunas'] = doc['colunas'].toString().split('/').toList();
         item['pesquisa'] = doc['pesquisa'].toString().split('/').toList();
+        item['version'] = doc['version'];
         catalogs[doc['item']] = item;
       }
     } catch (e) {
@@ -22,9 +23,10 @@ class DataRepository extends GetxController {
 
   Future<Map<String, dynamic>> catalogData(Map<String, dynamic> catalog,
       {String? car, String? year}) async {
+        var collection = catalog.keys.elementAt(0).split('/')[2];
     Map<String, dynamic> query = {};
     var result = await FirebaseFirestore.instance
-        .collection(catalog.keys.elementAt(0))
+        .collection(collection)
         .get();
 
     for (var doc in result.docs) {
@@ -53,5 +55,18 @@ class DataRepository extends GetxController {
       query[doc.id]['colunas'] = catalog[catalog.keys.elementAt(0)]['colunas'];      
     }
     return query;
+  }
+
+  Future<Map<String, dynamic>> returnCatalogData( String collection) async{
+    Map<String, dynamic> data = {};
+    var _collection = collection.split('/')[2];
+    
+    var result = await FirebaseFirestore.instance
+        .collection(_collection)
+        .get();
+    for(var doc in result.docs){
+      data[doc.id] = doc.data();
+    }
+    return data;
   }
 }
