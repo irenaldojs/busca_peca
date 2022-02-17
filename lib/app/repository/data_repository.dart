@@ -56,7 +56,7 @@ class DataRepository extends GetxController {
     }
     return query;
   }
-
+  
   Future<Map<String, dynamic>> returnCatalogData( String collection) async{
     Map<String, dynamic> data = {};
     var _collection = collection.split('/')[2];
