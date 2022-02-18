@@ -5,7 +5,8 @@ import 'package:get/get.dart';
 
 class CatalogController extends GetxController {
  
-  String catalog = Get.arguments;
+  String catalog = Get.arguments[0];
+  String version = Get.arguments[1];
   DataRepository data = Get.find();
   DataLocalRepository local = Get.find();
 

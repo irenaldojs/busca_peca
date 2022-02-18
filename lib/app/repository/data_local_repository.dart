@@ -1,6 +1,8 @@
 import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:localstore/localstore.dart';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'data_repository.dart';
 
 class DataLocalRepository extends GetxController {
@@ -35,31 +37,60 @@ class DataLocalRepository extends GetxController {
         var cloudVersion = _collection[docString]['version'];
         int localVersionInt = int.parse(localVersion.toString());
         int cloudVersionInt = int.parse(cloudVersion.toString());
-        /*
-        if (localVersionInt != cloudVersionInt) {
-          var update = await returnCatalogData(docString);
-          _localDb.collection('catalogos').doc(docString).set(update);
-          log(update.toString());
-        }
-        */
       }
     }
     return _catalogsList;
   }
 
-  Future<Map<String, dynamic>> returnCatalogData(String collection) async {
+  Future<Map<String, dynamic>> returnCatalogData(
+      String collection, String version,
+      {String? car, String? year}) async {
     Map<String, dynamic> data = <String, dynamic>{};
-    final cloudCollection = await _cloudDb.returnCatalogData(collection);
+    String nameCollection = collection.split('/')[1];
     String nameDocument = collection.split('/')[2];
+    final cloudCollection = await _cloudDb.returnCatalogData(collection);
     var document = await _localDb.collection(nameDocument).get();
+    // Associando o documento
     if (document == null) {
-      var newDocument = await updateCatalogData(collection);
-      log(newDocument.toString());
+      data = await updateCatalogData(collection, version);
+    } else {
+      data = document;
     }
+    // Filtros
+    if (car != null) {
+      // Fitlro carro
+      data.removeWhere(
+          (key, value) => !value['carro'].toString().contains(car));
+    }
+    if (year != 'Todos') {
+      data.removeWhere((key, value) {
+        String init = value['ano'].toString().split('/')[0];
+        String end = value['ano'].toString().split('/')[1];
+        bool test = false;
+
+        int year_int = int.parse(year!);
+
+        if (init != '...') {
+          int init_int = int.parse(init);
+          if (init_int > year_int) {
+            test = true;
+          }
+        }
+        if (end != '...') {
+          int end_int = int.parse(end);
+          if (end_int < year_int) {
+            test = true;
+          }
+        }
+        return test;
+      });
+    }
+
     return data;
   }
 
-  Future<Map<String, dynamic>> updateCatalogData(String collection) async {
+  Future<Map<String, dynamic>> updateCatalogData(
+      String collection, String version) async {
     var newDocument = await _cloudDb.returnCatalogData(collection);
 
     String nameCollection = collection.split('/')[1];

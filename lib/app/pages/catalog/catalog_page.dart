@@ -43,8 +43,12 @@ class CatalogPage extends GetView<CatalogController> {
         child: const Icon(Icons.search),
         onPressed: () {
           Get.toNamed('catalogData',
-              arguments:
-                  controller.local.returnCatalogData(controller.catalog));
+              arguments: controller.local.returnCatalogData(
+                controller.catalog,
+                controller.version,
+                car: controller.car.value.text,
+                year: controller.year.value,
+              ));
         },
       ),
     );

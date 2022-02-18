@@ -20,13 +20,13 @@ textFieldSearch(HomeController controller) => TextField(
       onChanged: controller.searchOnChanged(),
     );
 
-listTitle(HomeController controller, String item) {
+listTitle(HomeController controller, String catalog, String version) {
   return ListTile(
       title: Text(
-        item.split('/')[2].capitalize!,
+        catalog.split('/')[2].capitalize!,
         style: const TextStyle(fontSize: 24),
       ),
       onTap: () {
-        Get.toNamed('/catalog', arguments: item );
+        Get.toNamed('/catalog', arguments: [catalog, version]);
       });
 }

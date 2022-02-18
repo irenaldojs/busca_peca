@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:busca_peca/app/pages/home/home_controller.dart';
 import 'package:busca_peca/app/pages/home/home_widgets.dart';
 import 'package:flutter/material.dart';
@@ -25,10 +27,12 @@ class HomePage extends GetView<HomeController> {
                 itemCount: count,
                 itemBuilder: (context, index) {
                   Map<String, dynamic> item = snapshot.data;
-                  
+                  String version = item.values.elementAt(0)['version'].toString();
+                  log(version);
                   return listTitle(
                     controller,
                     item.keys.elementAt(index),
+                    version
                   );
                 },
               ),
