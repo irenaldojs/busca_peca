@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:busca_peca/app/pages/home/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

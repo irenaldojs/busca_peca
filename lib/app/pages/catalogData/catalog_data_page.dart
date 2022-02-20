@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:busca_peca/app/pages/catalogData/catalog_data_controller.dart';
 import 'catalog_data_widgets.dart';
 import 'package:flutter/material.dart';

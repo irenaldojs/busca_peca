@@ -1,42 +1,43 @@
 import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:localstore/localstore.dart';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'data_repository.dart';
 
 class DataLocalRepository extends GetxController {
-  DataRepository _cloudDb = Get.find();
+  DataRepository cloudDb = Get.find();
 
   final _localDb = Localstore.instance;
 
   Future<Map<String, dynamic>> returnCatalogsList() async {
-    final _collection = await _cloudDb.listCatalogs();
-    var _catalogsList = await _localDb.collection('catalogos').get();
+    final _collection = await cloudDb.listCatalogs(); // carrega lista na nuvem
+    var _catalogsList =
+        await _localDb.collection('catalogos').get(); // carrega lista local
 
     if (_catalogsList == null || _catalogsList == {}) {
+      // se a lista local for nula ou vazia
       if (_catalogsList != null) {
-        _catalogsList.clear();
+        // se vazia
+        _catalogsList.clear(); // limpa lista
       } else {
-        _catalogsList = <String, dynamic>{};
+        _catalogsList = <String, dynamic>{}; // instancia a lista
       }
       _collection.forEach((key, value) {
+        // salva lista da nuvem na variável
         _catalogsList![key] = value;
       });
+
       for (var doc in _catalogsList.keys) {
+        // salva lista local no localStore
         await _localDb.collection('catalogos').doc(doc).set(_catalogsList[doc]);
-        log('chamou');
       }
     } else {
+      // se houver uma lista
+
       for (var doc in _catalogsList.keys) {
-        var localVersion =
+        final localVersion =
             await _localDb.collection('catalogos').doc(doc).get().then((value) {
           return value!['version'];
         });
-        var docString = doc.split('/')[2];
-        var cloudVersion = _collection[docString]['version'];
-        int localVersionInt = int.parse(localVersion.toString());
-        int cloudVersionInt = int.parse(cloudVersion.toString());
       }
     }
     return _catalogsList;
@@ -46,14 +47,19 @@ class DataLocalRepository extends GetxController {
       String collection, String version,
       {String? car, String? year}) async {
     Map<String, dynamic> data = <String, dynamic>{};
-    String nameCollection = collection.split('/')[1];
-    String nameDocument = collection.split('/')[2];
-    final cloudCollection = await _cloudDb.returnCatalogData(collection);
+    String nameCollection = collection.split('/')[1]; // nome coleção
+    String nameDocument = collection.split('/')[2]; // nome do documento
+    int cloudVersion = await cloudDb.returnCloudVersion(nameDocument);
+    int localVersion = int.parse(version);
+
     var document = await _localDb.collection(nameDocument).get();
+
     // Associando o documento
-    if (document == null) {
-      data = await updateCatalogData(collection, version);
+    if (document == null || cloudVersion > localVersion) {
+      //log('nuvem');
+      data = await updateCatalogData(collection, cloudVersion.toString());
     } else {
+      //log('local, version: ' + localVersion.toString());
       data = document;
     }
     // Filtros
@@ -68,17 +74,17 @@ class DataLocalRepository extends GetxController {
         String end = value['ano'].toString().split('/')[1];
         bool test = false;
 
-        int year_int = int.parse(year!);
+        int yearInt = int.parse(year!);
 
         if (init != '...') {
-          int init_int = int.parse(init);
-          if (init_int > year_int) {
+          int initInt = int.parse(init);
+          if (initInt > yearInt) {
             test = true;
           }
         }
         if (end != '...') {
-          int end_int = int.parse(end);
-          if (end_int < year_int) {
+          int endInt = int.parse(end);
+          if (endInt < yearInt) {
             test = true;
           }
         }
@@ -91,7 +97,7 @@ class DataLocalRepository extends GetxController {
 
   Future<Map<String, dynamic>> updateCatalogData(
       String collection, String version) async {
-    var newDocument = await _cloudDb.returnCatalogData(collection);
+    var newDocument = await cloudDb.returnCatalogData(collection);
 
     String nameCollection = collection.split('/')[1];
     String nameDocument = collection.split('/')[2];
@@ -99,6 +105,9 @@ class DataLocalRepository extends GetxController {
     newDocument.forEach((key, value) {
       _localDb.collection(nameDocument).doc(key).set(value);
     });
+    var localDocument = await _localDb.collection(nameCollection).doc(nameDocument).get();
+    localDocument!['version'] = version;
+    await _localDb.collection(nameCollection).doc(nameDocument).set(localDocument);
 
     return newDocument;
   }

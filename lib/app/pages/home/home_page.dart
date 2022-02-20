@@ -28,7 +28,6 @@ class HomePage extends GetView<HomeController> {
                 itemBuilder: (context, index) {
                   Map<String, dynamic> item = snapshot.data;
                   String version = item.values.elementAt(0)['version'].toString();
-                  log(version);
                   return listTitle(
                     controller,
                     item.keys.elementAt(index),
