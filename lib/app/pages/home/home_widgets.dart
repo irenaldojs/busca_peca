@@ -27,6 +27,6 @@ listTitle(HomeController controller, Catalog catalog) {
         style: const TextStyle(fontSize: 24),
       ),
       onTap: () {
-        Get.toNamed('/catalog', arguments: [catalog.name, catalog.version]);
+        Get.toNamed('/catalog', arguments: catalog);
       });
 }

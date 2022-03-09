@@ -1,4 +1,3 @@
-
 import 'dart:math';
 
 import 'package:busca_peca/app/models/register_catalog_model.dart';
@@ -6,11 +5,31 @@ import 'package:busca_peca/app/models/catalog_model.dart';
 import 'package:busca_peca/app/repository/cloud_data_interface.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class FirestoreRepository implements ICloudData{
+class FirestoreRepository implements ICloudData {
   @override
-  Future<RegisterCatalog> catalogData(String nameDocument, {String? car, String? year, bool? acd, bool? dh, bool? abs, bool? ta, bool? gnv}) {
-    // TODO: implement catalogData
-    throw UnimplementedError();
+  Future<RegisterCatalog> catalogData(
+    Catalog catalog, {
+    String? car,
+    String? year,
+    bool? acd,
+    bool? dh,
+    bool? abs,
+    bool? ta,
+    bool? gnv,
+  }) async {
+    var registerCatalog;
+    try {
+      var result =
+          await FirebaseFirestore.instance.collection(catalog.name).get();
+      List<Map<String, dynamic>> data = [];
+      for (var doc in result.docs) {
+        data.add(doc.data());
+      }
+      registerCatalog = RegisterCatalog(doc: catalog.name, data: data);
+    } catch (e) {
+      throw Exception('Erro na conexão: ' + e.toString());
+    }
+    return registerCatalog;
   }
 
   @override
@@ -18,15 +37,14 @@ class FirestoreRepository implements ICloudData{
     List<Catalog> listCatalog = [];
     try {
       var result =
-          await FirebaseFirestore.instance.collection('catalogos').get();      
+          await FirebaseFirestore.instance.collection('catalogos').get();
       for (var doc in result.docs) {
         final catalog = Catalog.fromMap(doc.data());
         listCatalog.add(catalog);
       }
     } catch (e) {
-      throw Exception('Erro na conexão: '+ e.toString());
+      throw Exception('Erro na conexão: ' + e.toString());
     }
     return listCatalog;
   }
-
 }

@@ -2,20 +2,18 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 
-
 class RegisterCatalog {
-  
   String doc;
-  Map<String, dynamic> data;
-
+  List<Map<String, dynamic>> data;
+  
   RegisterCatalog({
     required this.doc,
     required this.data,
-  });  
+  });
 
   RegisterCatalog copyWith({
     String? doc,
-    Map<String, dynamic>? data,
+    List<Map<String, dynamic>>? data,
   }) {
     return RegisterCatalog(
       doc: doc ?? this.doc,
@@ -30,16 +28,7 @@ class RegisterCatalog {
     };
   }
 
-  factory RegisterCatalog.fromMap(Map<String, dynamic> map) {
-    return RegisterCatalog(
-      doc: map['doc'] ?? '',
-      data: Map<String, dynamic>.from(map['data']),
-    );
-  }
-
   String toJson() => json.encode(toMap());
-
-  factory RegisterCatalog.fromJson(String source) => RegisterCatalog.fromMap(json.decode(source));
 
   @override
   String toString() => 'RegisterCatalog(doc: $doc, data: $data)';
@@ -50,7 +39,7 @@ class RegisterCatalog {
   
     return other is RegisterCatalog &&
       other.doc == doc &&
-      mapEquals(other.data, data);
+      listEquals(other.data, data);
   }
 
   @override

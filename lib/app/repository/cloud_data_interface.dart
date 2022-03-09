@@ -5,7 +5,7 @@ abstract class ICloudData {
   Future<List<Catalog>> catalogList();
 
   Future<RegisterCatalog> catalogData(
-    String nameDocument, {
+    Catalog catalog, {
     String? car,
     String? year,
     bool? acd,
