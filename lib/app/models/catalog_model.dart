@@ -1,61 +1,78 @@
 import 'dart:convert';
 
-class CatalogModel{
-  String item;
-  List<String> pesquisa;
-  List<String> colunas;
+import 'package:flutter/foundation.dart';
 
-   CatalogModel({
-    required this.item,
-    required this.pesquisa,
-    required this.colunas
+class Catalog {
+  String name;
+  List<String> search;
+  List<String> columns;
+  int version;
+  
+  Catalog({
+    required this.name,
+    required this.search,
+    required this.columns,
+    required this.version,
   });
 
-  CatalogModel copyWith({
-    String? email,
-    String? password,
+
+  Catalog copyWith({
+    String? name,
+    List<String>? search,
+    List<String>? columns,
+    int? version,
   }) {
-    return CatalogModel(
-      item: item,
-      pesquisa: pesquisa,
-      colunas: colunas,
+    return Catalog(
+      name: name ?? this.name,
+      search: search ?? this.search,
+      columns: columns ?? this.columns,
+      version: version ?? this.version,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'item': item,
-      'pesquisa': pesquisa,
-      'colunas' : colunas
+      'name': name,
+      'search': search,
+      'columns': columns,
+      'version': version,
     };
   }
 
-  factory CatalogModel.fromMap(Map<String, dynamic> map) {
-    return CatalogModel(
-      item: map['item'] ?? '',
-      pesquisa: map['pesquisa'] ?? '',
-      colunas: map['colunas'] ?? '',
+  factory Catalog.fromMap(Map<String, dynamic> map) {
+    return Catalog(
+      name: map['name'] ?? '',
+      search: List<String>.from(map['search']),
+      columns: List<String>.from(map['columns']),
+      version: map['version']?.toInt() ?? 0,
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory CatalogModel.fromJson(String source) => CatalogModel.fromMap(json.decode(source));
+  factory Catalog.fromJson(String source) => Catalog.fromMap(json.decode(source));
 
   @override
-  String toString() => 'Catalog(item: $item, pesquisa: $pesquisa, colunas: $colunas)';
+  String toString() {
+    return 'Catalog(name: $name, search: $search, columns: $columns, version: $version)';
+  }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
   
-    return other is CatalogModel &&
-      other.item == item &&
-      other.pesquisa == pesquisa &&
-      other.colunas == colunas;
+    return other is Catalog &&
+      other.name == name &&
+      listEquals(other.search, search) &&
+      listEquals(other.columns, columns) &&
+      other.version == version;
   }
 
   @override
-  int get hashCode => item.hashCode ^ pesquisa.hashCode ^colunas.hashCode;
-
+  int get hashCode {
+    return name.hashCode ^
+      search.hashCode ^
+      columns.hashCode ^
+      version.hashCode;
+  }
 }

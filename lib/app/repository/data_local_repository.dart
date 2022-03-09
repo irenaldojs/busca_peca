@@ -34,10 +34,11 @@ class DataLocalRepository extends GetxController {
       // se houver uma lista
 
       for (var doc in _catalogsList.keys) {
-        final localVersion =
+        /*final localVersion =
             await _localDb.collection('catalogos').doc(doc).get().then((value) {
           return value!['version'];
         });
+        */
       }
     }
     return _catalogsList;
@@ -56,17 +57,18 @@ class DataLocalRepository extends GetxController {
 
     // Associando o documento
     if (document == null || cloudVersion > localVersion) {
-      //log('nuvem');
+      log('nuvem');
       data = await updateCatalogData(collection, cloudVersion.toString());
     } else {
-      //log('local, version: ' + localVersion.toString());
+      log('local, version: ' + localVersion.toString());
       data = document;
     }
+
     // Filtros
     if (car != null) {
       // Fitlro carro
       data.removeWhere(
-          (key, value) => !value['carro'].toString().contains(car));
+          (key, value) => !value['carro'].toString().contains(car.toLowerCase()));
     }
     if (year != 'Todos') {
       data.removeWhere((key, value) {
