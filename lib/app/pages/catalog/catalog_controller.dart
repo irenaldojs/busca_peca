@@ -5,7 +5,7 @@ import 'package:busca_peca/app/repository/data_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../repository/cloud_data_interface.dart';
+import '../../repository/data_interface.dart';
 import '../../repository/firestore_repository.dart';
 
 class CatalogController extends GetxController {
@@ -14,7 +14,7 @@ class CatalogController extends GetxController {
 
   DataRepository data = Get.find();
   DataLocalRepository local = Get.find();
-  ICloudData catalogsRepository = FirestoreRepository();
+  IData catalogsRepository = FirestoreRepository();
 
   var car = TextEditingController().obs;
   var year = 'Todos'.obs;
@@ -29,6 +29,6 @@ class CatalogController extends GetxController {
     car.value.text.toUpperCase();
   }
   Future<RegisterCatalog> GetData () async {
-    return await catalogsRepository.catalogData(catalog);
+    return await catalogsRepository.catalogData(catalog, car: car.value.text, year: year.value);
   }
 }

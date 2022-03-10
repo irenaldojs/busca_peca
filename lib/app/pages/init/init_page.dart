@@ -13,7 +13,7 @@ class InitPage extends GetView<AuthService> {
   }
 
   check() {
-    Timer(const Duration(seconds: 1), () => route());
+    Timer(const Duration(seconds: 2), () => route());
   }
 
   route() {

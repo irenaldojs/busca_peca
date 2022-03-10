@@ -4,14 +4,14 @@ import 'package:busca_peca/app/repository/data_repository.dart';
 import 'package:busca_peca/app/repository/firestore_repository.dart';
 import 'package:get/get.dart';
 
-import '../../repository/cloud_data_interface.dart';
+import '../../repository/data_interface.dart';
 
 class HomeController extends GetxController {
 
   DataRepository data = Get.find();
   DataLocalRepository local = Get.find();
-  ICloudData catalogsRepository = FirestoreRepository();
-
+  IData catalogsRepository = FirestoreRepository();
+  
   List<Catalog> catalogs = [];
 
   Future<List<Catalog>> SearchCatalogs () async {

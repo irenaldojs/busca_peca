@@ -89,15 +89,15 @@ Widget listData(Map<String, dynamic> data, String doc) {
     decoration: BoxDecoration(
         border: Border.all(),
         color: Colors.white,
-        borderRadius: const BorderRadius.all(Radius.circular(36))),
+        borderRadius: const BorderRadius.all(Radius.circular(18))),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: rows +
+      children: rows/* +
           [
             auth.localUser!.email == 'irenaldojs@gmail.com'
                 ? editButtom()
                 : Container(),
-          ],
+          ]*/,
     ),
   );
 }
