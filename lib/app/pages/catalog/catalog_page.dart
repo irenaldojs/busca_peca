@@ -42,7 +42,7 @@ class CatalogPage extends GetView<CatalogController> {
         backgroundColor: Colors.grey,
         child: const Icon(Icons.search),
         onPressed: () {
-          Get.toNamed('catalogData', arguments: controller.GetData());
+          Get.toNamed('catalogData', arguments: controller.GetFilterData());
         },
       ),
     );

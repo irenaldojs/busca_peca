@@ -1,7 +1,10 @@
 import 'package:busca_peca/app/models/catalog_model.dart';
 import 'package:busca_peca/app/pages/home/home_controller.dart';
+import 'package:busca_peca/app/repository/data_interface.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../repository/firestore_repository.dart';
 
 iconButtonBar(HomeController controller) => IconButton(
       onPressed: () => Get.toNamed('/profile'),
@@ -26,7 +29,9 @@ listTitle(HomeController controller, Catalog catalog) {
         catalog.name.capitalize!,
         style: const TextStyle(fontSize: 24),
       ),
-      onTap: () {
-        Get.toNamed('/catalog', arguments: catalog);
+      onTap: () async {
+        
+        IData catalogsRepository = FirestoreRepository();
+        Get.toNamed('/catalog', arguments: [catalog, await catalogsRepository.catalogData(catalog)]);
       });
 }
