@@ -1,5 +1,4 @@
-import 'package:busca_peca/app/models/register_catalog_model.dart';
-import 'package:busca_peca/app/pages/catalogData/catalog_data_controller.dart';
+import 'catalog_data_controller.dart';
 import 'catalog_data_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,16 +12,15 @@ class CatalogDataPage extends GetView<CatalogDataController> {
         appBar: AppBar(
           title: const Center(child: Text('')),
         ),
-        body: FutureBuilder<RegisterCatalog>(
-          future: Get.arguments,
+        body: FutureBuilder<List<Map<String, dynamic>>>(
+          future: controller.registerDataFilter(),
           builder:
-              (BuildContext context, AsyncSnapshot<RegisterCatalog> snapshot) {
+              (BuildContext context, AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
             if (snapshot.hasData && snapshot.data != null) {
-              RegisterCatalog query = snapshot.data!;
               return ListView.builder(
-                itemCount: query.data.length,
+                itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
-                  var doc = query.data[index];
+                  var doc = snapshot.data![index];
                   return listData(doc, '');
                 },
               );

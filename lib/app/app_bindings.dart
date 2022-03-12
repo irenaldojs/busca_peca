@@ -4,6 +4,7 @@ import 'package:busca_peca/app/pages/home/home_controller.dart';
 import 'package:busca_peca/app/pages/login/login_controller.dart';
 import 'package:busca_peca/app/pages/profile/profile_controller.dart';
 import 'package:busca_peca/app/pages/register/register_controller.dart';
+import 'package:busca_peca/app/repository/data_controller.dart';
 import 'package:busca_peca/app/repository/data_local_repository.dart';
 import 'package:busca_peca/app/services/auth_service.dart';
 import 'package:busca_peca/app/repository/data_repository.dart';
@@ -32,10 +33,9 @@ class RegisterBindings implements Bindings {
 
 class HomeBindings implements Bindings{
   @override
-  void dependencies() {
-    Get.lazyPut(() => HomeController());
-    Get.put(DataRepository(), permanent: true);
-    Get.put(DataLocalRepository(), permanent: true);
+  void dependencies() {    
+    Get.put(DataController(), permanent: true);
+    Get.lazyPut(() => HomeController());    
   }
   
 }

@@ -14,7 +14,7 @@ class DataFilter {
     bool? abs,
     bool? ta,
   }) {
-    List<Map<String, dynamic>> dataFilter = data;
+    List<Map<String, dynamic>> dataFilter = data.toList();
 
     // Filtro de carro
     if (car != null && car != '') {

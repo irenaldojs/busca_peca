@@ -30,8 +30,7 @@ listTitle(HomeController controller, Catalog catalog) {
         style: const TextStyle(fontSize: 24),
       ),
       onTap: () async {
-        
-        IData catalogsRepository = FirestoreRepository();
-        Get.toNamed('/catalog', arguments: [catalog, await catalogsRepository.catalogData(catalog)]);
+        await controller.selectCatalog(catalog);
+        Get.toNamed('/catalog');
       });
 }

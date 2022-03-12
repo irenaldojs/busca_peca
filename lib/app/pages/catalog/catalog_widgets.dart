@@ -4,10 +4,45 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
+CatalogController controller = Get.find();
+
 var textStyle = const TextStyle(
   fontSize: 24,
   fontWeight: FontWeight.bold,
 );
+
+class FilterCar extends StatelessWidget {
+  const FilterCar({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Expanded(
+          flex: 2,
+          child: Text('Carro', style: textStyle),
+        ),
+        Expanded(
+            flex: 4,
+            child: Obx(() => TextField(
+                  controller: controller.car.value,
+                  keyboardType: TextInputType.text,
+                  textCapitalization: TextCapitalization.characters,
+                  style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.grey.shade200,
+                    border: const OutlineInputBorder(),
+                  ),
+                )))
+      ],
+    );
+  }
+}
 
 filterCar(CatalogController controller) {
   return Row(
@@ -19,18 +54,20 @@ filterCar(CatalogController controller) {
       ),
       Expanded(
           flex: 4,
-          child: TextField(
-            controller: controller.car.value,
-            keyboardType: TextInputType.text,
-            textCapitalization: TextCapitalization.characters,
-            style: const TextStyle(
-                fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
-            decoration: InputDecoration(
-              filled: true,
-              fillColor: Colors.grey.shade200,
-              border: const OutlineInputBorder(),
-            ),
-          ))
+          child: Obx(() => TextField(
+                controller: controller.car.value,
+                keyboardType: TextInputType.text,
+                textCapitalization: TextCapitalization.characters,
+                style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black),
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.grey.shade200,
+                  border: const OutlineInputBorder(),
+                ),
+              )))
     ],
   );
 }
@@ -186,7 +223,8 @@ filterAgeDropDown(CatalogController controller) {
 
   for (int i = 1961; i < 2023; i++) {
     ages.add(i.toString());
-  };
+  }
+  ;
 
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
