@@ -19,7 +19,7 @@ class CatalogPage extends GetView<CatalogController> {
           padding: const EdgeInsets.all(32.0),
           child: Column(
             children: [
-              filterCar(controller),
+              FilterCar(),
               const SizedBox(height: 10),
               filterAgeDropDown(controller),
               const SizedBox(height: 10),

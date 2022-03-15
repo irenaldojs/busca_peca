@@ -1,8 +1,11 @@
+import 'dart:developer';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:busca_peca/app/pages/catalog/catalog_controller.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 
 CatalogController controller = Get.find();
 
@@ -25,20 +28,34 @@ class FilterCar extends StatelessWidget {
         ),
         Expanded(
             flex: 4,
-            child: Obx(() => TextField(
-                  controller: controller.car.value,
-                  keyboardType: TextInputType.text,
-                  textCapitalization: TextCapitalization.characters,
-                  style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black),
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.grey.shade200,
-                    border: const OutlineInputBorder(),
-                  ),
-                )))
+            child: TypeAheadFormField<String>(
+              textFieldConfiguration: TextFieldConfiguration(
+                controller: controller.car.value,
+                style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black),
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.grey.shade200,
+                  border: const OutlineInputBorder(),
+                ),
+              ),
+              suggestionsCallback: (pattern) {
+                return controller.getSuggestionsCars(pattern);
+              },
+              itemBuilder: (context, suggestion) {
+                return ListTile(
+                  title: Text(suggestion),
+                );
+              },
+              transitionBuilder: (context, suggestionsBox, controller) {
+                return suggestionsBox;
+              },
+              onSuggestionSelected: (suggestion) {
+                controller.car.value.text = suggestion;
+              },
+            ))
       ],
     );
   }
