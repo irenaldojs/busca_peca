@@ -29,13 +29,11 @@ class LoginPage extends GetView<LoginController> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      textFormFieldEmail(
-                          height, controller.emailController.value),
+                      const TextFormFieldEmail(),
                       SizedBox(height: height * 0.02),
-                      textFormFieldPassword(
-                          height, controller.passwordController.value),
+                      const TextFormFieldPassword(),
                       SizedBox(height: height * 0.02),
-                      elevatedButtonLogin(Get.mediaQuery.size, controller)
+                      const ElevatedButtonLogin(),
                     ],
                   ),
                 ),

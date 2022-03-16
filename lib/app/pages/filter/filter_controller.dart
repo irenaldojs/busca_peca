@@ -1,11 +1,10 @@
-import 'dart:developer';
 import 'package:busca_peca/app/models/register_catalog_model.dart';
 import 'package:busca_peca/app/repository/data_controller.dart';
 import 'package:busca_peca/app/repository/data_filter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class CatalogController extends GetxController {
+class FilterController extends GetxController {
   DataController dataController = Get.find();
 
   var car = TextEditingController().obs;
@@ -55,7 +54,18 @@ class CatalogController extends GetxController {
       final queryLower = query.toLowerCase();
       return carLower.contains(queryLower);
     }).toList();
-
+    suggestion.sort();
     return suggestion;
+  }
+
+  cleanControllers() {
+    car.value.text = '';
+    year.value = 'Todos';
+    motor.value.text = '';
+    acd.value = false;
+    dh.value = false;
+    abs.value = false;
+    ta.value = false;
+    gnv.value = false;
   }
 }

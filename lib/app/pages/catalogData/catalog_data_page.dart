@@ -9,24 +9,31 @@ class CatalogDataPage extends GetView<CatalogDataController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Center(child: Text('')),
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () => Get.offAllNamed('/home'),
+          icon: Icon( 
+            Icons.home_outlined,
+            size: Get.mediaQuery.size.height * 0.05,
+          ),
         ),
-        body: FutureBuilder<List<Map<String, dynamic>>>(
-          future: controller.registerDataFilter(),
-          builder:
-              (BuildContext context, AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
-            if (snapshot.hasData && snapshot.data != null) {
-              return ListView.builder(
-                itemCount: snapshot.data!.length,
-                itemBuilder: (context, index) {
-                  var doc = snapshot.data![index];
-                  return listData(doc, '');
-                },
-              );
-            }
-            return const Center(child: CircularProgressIndicator());
-          },
-        ));
+        title: Center(
+            child: Text(
+          controller.dataController.catalog!.name.capitalize!,
+          style: TextStyle(fontSize: Get.mediaQuery.size.height * 0.035),
+        )),
+        actions: [
+          IconButton(
+            onPressed: () => Get.toNamed('/filter'),
+            icon: Icon(
+              Icons.search_outlined,
+              size: Get.mediaQuery.size.height * 0.05,
+            ),
+          ),
+          const SizedBox(width: 15)
+        ],
+      ),
+      body: const ListData(),
+    );
   }
 }

@@ -1,6 +1,3 @@
-
-import 'dart:developer';
-
 class DataFilter {
   
   static List<Map<String, dynamic>> catalogDataFilter(

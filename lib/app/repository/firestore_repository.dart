@@ -1,6 +1,5 @@
 import 'package:busca_peca/app/models/register_catalog_model.dart';
 import 'package:busca_peca/app/models/catalog_model.dart';
-import 'package:busca_peca/app/repository/data_filter.dart';
 import 'package:busca_peca/app/repository/data_interface.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 

@@ -122,6 +122,7 @@ textFormFieldPassword(double height, TextEditingController editController) {
       } else if (value.length < 6) {
         return 'Deve ter ao menos 6 digitos';
       }
+      return 'erro';
     },
   );
 }
@@ -143,6 +144,7 @@ textFormFieldComparePassword(
       if (value != passwordEditController.text) {
         return 'Senha diferente';
       }
+      return 'erro';
     },
   );
 }

@@ -1,13 +1,11 @@
-import 'package:busca_peca/app/pages/catalog/catalog_controller.dart';
 import 'package:busca_peca/app/pages/catalogData/catalog_data_controller.dart';
+import 'package:busca_peca/app/pages/filter/filter_controller.dart';
 import 'package:busca_peca/app/pages/home/home_controller.dart';
 import 'package:busca_peca/app/pages/login/login_controller.dart';
 import 'package:busca_peca/app/pages/profile/profile_controller.dart';
 import 'package:busca_peca/app/pages/register/register_controller.dart';
 import 'package:busca_peca/app/repository/data_controller.dart';
-import 'package:busca_peca/app/repository/data_local_repository.dart';
 import 'package:busca_peca/app/services/auth_service.dart';
-import 'package:busca_peca/app/repository/data_repository.dart';
 import 'package:get/instance_manager.dart';
 
 class InitBindings implements Bindings {
@@ -47,11 +45,10 @@ class ProfileBindings implements Bindings{
   }
   
 }
-
-class CatalogBindings implements Bindings{
+class FilterBindings implements Bindings{
   @override
   void dependencies() {
-    Get.lazyPut(() => CatalogController());
+    Get.lazyPut(() => FilterController());
   }
 }
 

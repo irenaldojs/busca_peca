@@ -1,5 +1,5 @@
-import 'package:busca_peca/app/pages/catalog/catalog_page.dart';
 import 'package:busca_peca/app/pages/catalogData/catalog_data_page.dart';
+import 'package:busca_peca/app/pages/filter/filter_page.dart';
 import 'package:busca_peca/app/pages/init/init_page.dart';
 import 'package:get/get.dart';
 import 'app_bindings.dart';
@@ -37,9 +37,10 @@ class Routes {
         binding: ProfileBindings(),
       ),
       GetPage(
-        name: '/catalog',
-        page: () => const CatalogPage(),
-        binding: CatalogBindings(),
+        name: '/filter',
+        page: () => const FilterPage(),
+        transition: Transition.upToDown,
+        binding: FilterBindings(),
       ),
       GetPage(
         name: '/catalogData',
